@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<!--根元素 -->
+<struts>
+    <package name="login" extends="struts-default">
+        <!--对一个Action配置，可以有多对；name是对业务控制器命名，在表单中指定的地址；class指定类的位置。-->
+        <action name="login" class="loginAction.LoginAction">
+             <!-- 定义两个逻辑视图和物理资源之间的映射 ，name值是Action中返回的结果-->		
+            <result name="input">/login/login.jsp</result>
+            <result name="success">/login/success.jsp</result>
+        </action>
+    </package>
+</struts>
