@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 插入图片有插入本地和来自网络连接两种模式 -->
+	<a href="https://archive.org/" title="点我进入" target="_blank"><img src="C:\Users\86177\Desktop\严夫人.jpg"></a>
+	<!-- 使用网络连接插入图片时注意图片版权，并且会降低网页加载速度 -->
+	<a href="https://archive.org/" title="点我进入" target="_blank"><img src="https://peixun.dzwww.com/upload/31519/12120_252946.jpeg" alt="logo"></a>
+	<!-- alt在图片出错无法展示时给予描述 -->
+	<!-- 定义图片的宽高(但由于清晰度原因一般交给CSS实现) -->
+	<img src="C:\Users\86177\Desktop\严夫.jpg" alt="logo" title="这是官网的一个logo" width="500px" height="500px">
+	<!-- 引用路径可以使用相对路径 -->
+	<img src="img\严夫人.jpg" alt="logo" title="这是官网的一个logo" width="500px" height="500px">
+	<!-- 在使用相对路径时..\表示上一级目录 -->
+	<!-- 绝对路径可移植性差，建议使用相对路径 -->
+</body>
+</html>
