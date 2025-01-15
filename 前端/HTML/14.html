@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- get不支持大量数据传输，这里使用post，数据隐藏在请求体中 -->
+	<!-- enctype表示传输形式，multipart/form-data表示文件(二进制)传输 -->
+	<form action="#" method="post" enctype="multipart/form-data">
+		<!-- file表示传输文件 -->
+		上传头像<input type="file" name="file"><br>
+		<input type="submit" value="提交数据">
+	</form>
+	<form action="#">
+		<!-- disabled表示禁用输入框，不随请求提交，value回显数据 -->
+		搜索<input type="text" name="key" value="搜索已禁用" disabled><br>
+	<!-- 后台需要处理但前台用户不需要管的信息(如点击)在隐藏域之中 -->
+	<!-- 通过hidden标签隐藏默认信息，提交时一同提交给后端 -->
+		<input type="hidden" name="act" value="input">
+		<input type="submit" value="提交数据"><br>
+		<!-- reset值表示按钮重置，value默认值为重置 -->
+		重置<input type="reset" name="reset" value="重置数据">
+		<!-- 普通按钮没有什么卵用，必须结合JS赋予语义 -->
+		普通按钮<input type="button" name="button" value="普通按钮">
+	</form>
+</body>
+</html>

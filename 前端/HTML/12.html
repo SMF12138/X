@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- form为表单标签，action为服务器，#表示将数据提交给页面自己 -->
+	<!-- 使用get请求，数据能在地址栏展示 -->
+	<form action="#" method="get">
+		<!-- input为输入控件，type指定类型为文本，name为可供后端识别的数据名 -->
+		用户名<input type="text" name="username"><br>
+		<!-- password类型为密文，但不能用get请求否则数据泄露 -->
+		密码<input type="password" name="password"><br>
+		<!-- textarea为文本域标签，规定最大50列10行 -->
+		自我介绍<textarea name="textarea" cols="50" rows="10"></textarea><br>
+		<!-- radio为选择控件，需要将同组选项name设置为一组，同时该控件需要设置value值给后端 -->
+		<!-- 加入checked属性表示默认男性 -->
+		性别:男<input type="radio" name="gender" value="1" checked>
+		女<input type="radio" name="gender" value="0"><br>
+		<!-- checkbox为复选标签 -->
+		爱好:唱<input type="checkbox" name="hobby" value="2" checked>
+		跳<input type="checkbox" name="hobby" value="3">
+		rap<input type="checkbox" name="hobby" value="4">
+		篮球<input type="checkbox" name="hobby" value="5"><br>
+		<!-- submit为提交按钮，value为提示信息，默认为提交 -->
+		阅读规范并同意<input type="checkbox" name="isAgree" value="6"><br>
+		<input type="submit" value="提交数据">
+	</form>
+</body>
+</html>
