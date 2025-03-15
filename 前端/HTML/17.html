@@ -1,0 +1,27 @@
+<!-- 伪类选择器不同于类选择器在于其不按种类分类而是按标签的状态或对标签的行为分类 -->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>普通伪类选择器</title>
+		<style type="text/css">
+			/* first-child表示兄弟元素中的第一个 */
+			p:first-child {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<p>段落1</p>
+			<p>段落2</p>
+			<p>段落3</p>
+		</div>
+		<div>
+			<p>段落4</p>
+			<p>段落5</p>
+			<p>段落6</p>
+		</div>
+	</body>
+</html>

@@ -1,105 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        <!-- 样式无关内容，CSS的出现解决了html样式冗余的问题，使结构更加清晰 -->
+        <!-- style中定义样式，通过下方标签选择器的形式展现 -->
+        <style type="text/css">
+            span {
+                background-color: yellow;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <!-- 样式无关内容，CSS的出现解决了html样式冗余的问题，使结构更加清晰 -->
-    <!-- style中定义样式，通过下方标签选择器的形式展现 -->
-    <style type="text/css">
-    span {
-        background-color: yellow;
-    }
+            strong {
+                color: rebeccapurple;
+            }
 
-    strong {
-        color: rebeccapurple;
-    }
+            em {
+                color: rebeccapurple;
+            }
 
-    em {
-        color: rebeccapurple;
-    }
+            /*通过类选择器的形式展现*/
+            .highlight {
+                background: blue;
+            }
 
-    /*通过类选择器的形式展现*/
-    .highlight {
-        background: blue;
-    }
+            /*通过id选择器的形式展现*/
+            #one {
+                color: gold;
+            }
 
-    /*通过id选择器的形式展现*/
-    #one {
-        color: gold;
-    }
+            #two {
+                color: gray;
+            }
 
-    #two {
-        color: gray;
-    }
+            /*全局选择器选中所有的元素，使用较少*/
+            * {
+                color: red;
+            }
 
-    /*全局选择器选中所有的元素，使用较少*/
-    * {
-        color: red;
-    }
+            /*属性选择器，统一设置有class属性的p标签*/
+            p[class] {
+                background-color: yellow;
+            }
 
-    /*属性选择器，统一设置有class属性的p标签*/
-    p[class] {
-        background-color: yellow;
-    }
+            /*给属性赋值使范围更加细节*/
+            p[id="two"] {
+                background-color: yellow;
+            }
 
-    /*给属性赋值使范围更加细节*/
-    p[id="two"] {
-        background-color: yellow;
-    }
+            /*~=是指匹配包含单个o的属性值，如xx o xx，中间必须用空格隔开*/
+            h1[id~="o"] {
+                background-color: black;
+            }
 
-    /*~=是指匹配包含单个o的属性值，如xx o xx，中间必须用空格隔开*/
-    h1[id~="o"] {
-        background-color: black;
-    }
+            /*|=是只匹配值后带有连字符的属性，如qiong-*/
+            h1[class|="qiong"] {
+                background-color: gold;
+            }
 
-    /*|=是只匹配值后带有连字符的属性，如qiong-*/
-    h1[class|="qiong"] {
-        background-color: gold;
-    }
+            /*下面是其他字符串匹配规则*/
+            /*^=代表匹配以i开头的字符*/
+            h1[class^="i"] {
+                background-color: yellow;
+            }
+            /*$=代表匹配以m结尾的字符*/
+            h2[class$="m"] {
+                background-color: yellow;
+            }
+            /**=代表匹配出现过-的字符*/
+            h3[class*="-"] {
+                background-color: yellow;
+            }
+            /*加入i标志忽略大小写*/
+            h4[class="WIW" i] {
+                background-color: gold;
+            }
+        </style>
+    </head>
 
-    /*下面是其他字符串匹配规则*/
-    /*^=代表匹配以i开头的字符*/
-    h1[class^="i"] {
-        background-color: yellow;
-    }
-    /*$=代表匹配以m结尾的字符*/
-    h2[class$="m"] {
-        background-color: yellow;
-    }
-    /**=代表匹配出现过-的字符*/
-    h3[class*="-"] {
-        background-color: yellow;
-    }
-    /*加入i标志忽略大小写*/
-    h4[class="WIW" i]{
-        background-color: gold;
-    }
-    </style>
-</head>
-
-<body>
-    <span>
-        哇大豆
-        <strong>
-            琼哥们
-        </strong>
-        <em>
-            师傅张
-        </em>
-    </span>
-    <!-- 给不同标签加入类属性 -->
-    <h1 class="highlight">类选择器适用于将自定义的的规则分组，将分组统一设置为一个样式</h1>
-    <p class="highlight">pppppppp</p>
-    <!-- 如果是单个元素一组，那么应使用id选择器 -->
-    <h1 id="one">id选择器适用于分组中只有单个元素的情况</h1>
-    <p id="two">pppppppp</p>
-    <h1 id="o m">我嘞个豆</h1>
-    <h1 class="qiong-gm">www</h1>
-    <h1 class="iong-gm">啧啧啧</h1>
-    <h2 class="iong-gm">啧啧啧</h2>
-    <h3 class="iong-gm">啧啧啧</h3>
-    <h4 class="wiw">卑鄙的我</h4>
-</body>
-
+    <body>
+        <span>
+            哇大豆
+            <strong> 琼哥们 </strong>
+            <em> 师傅张 </em>
+        </span>
+        <!-- 给不同标签加入类属性 -->
+        <h1 class="highlight">
+            类选择器适用于将自定义的的规则分组，将分组统一设置为一个样式
+        </h1>
+        <p class="highlight">pppppppp</p>
+        <!-- 如果是单个元素一组，那么应使用id选择器 -->
+        <h1 id="one">id选择器适用于分组中只有单个元素的情况</h1>
+        <p id="two">pppppppp</p>
+        <h1 id="o m">我嘞个豆</h1>
+        <h1 class="qiong-gm">www</h1>
+        <h1 class="iong-gm">啧啧啧</h1>
+        <h2 class="iong-gm">啧啧啧</h2>
+        <h3 class="iong-gm">啧啧啧</h3>
+        <h4 class="wiw">卑鄙的我</h4>
+    </body>
 </html>

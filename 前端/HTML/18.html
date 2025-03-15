@@ -1,0 +1,40 @@
+<!-- 伪类选择器不同于类选择器在于其不按种类分类而是按标签的状态或对标签的行为分类 -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>行为伪类选择器</title>
+    <style type="text/css">
+    /*超链接标签的行为有下面几种
+			 1.没有访问过该标签
+			 2.鼠标移动到标签上
+			 3.按下鼠标
+			 4.访问链接以后
+			*/
+    /*link表示没有访问过该标签*/
+    a:link {
+        color: blue;
+    }
+    /*visited表示访问链接以后*/
+    a:visited {
+        color: skyblue;
+    }
+    /*hover表示鼠标移动到标签上*/
+    a:hover {
+        color: yellow;
+    }
+    /*active表示按下鼠标*/
+    a:active {
+        color: red;
+    }
+    /*注意四种行为必须按照LVHA的顺序进行，并且在谷歌中visited可能受到不知名限制(我也不知道为什么)*/
+    </style> 
+</head>
+
+<body>
+    <a href="https://www.bjpowernode.com/">跳转官网<a>
+</body>
+
+</html>
