@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>边框属性</title>
+		<style type="text/css">
+			div {
+				/*规定边框宽度*/
+				border-width: 10px;
+				/*规定边框颜色*/
+				border-color: #567;
+				/*规定边框样式为实线，虚线为dashed，double双线，dotted点线*/
+				border-style: solid;
+			}
+			#one {
+				/*使用组合样式，且顺序无特定要求*/
+				border: 10px #567 dotted;
+			}
+		</style>
+	</head>
+	<body>
+		<div>块级标签</div>
+		<div id="one">另一个</div>
+	</body>
+</html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>组合字体属性</title>
+		<style type="text/css">
+			#one {
+				/*font-family: "微软雅黑";
+				font-size: 20px;
+				font-style: italic;
+				font-weight: bold;*/
+				/*下面使用组合属性简写，顺序必须按照:其他字体属性-字体大小-字体族*/
+				font: italic bold 50px "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		<p id="one">DLJD</p>
+	</body>
+</html>

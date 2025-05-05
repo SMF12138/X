@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>组合选择器优先级</title>
+		<style type="text/css">
+		/*
+		比较组合选择器优先级时先看首位谁大，相同看下一位
+		id选择器记首位，类选择器记次位，元素选择器记末位
+		*/
+			/*
+			表示选中div标签下的所有second-id选择器下的third-id选择器下的内容
+			一共包含了2个首位和一个末位
+			*/
+			div #second-id #third-id{
+				color: red;
+			}
+			/*
+			表示选中div标签下的所有second-id选择器下的third-id选择器下的内容
+			一共包含了1个首位，一个次位和一个末位
+			*/
+			div #second-id .third-class{
+				color: blue;
+			}
+			/*首位比较2比1，则红色优先级更高*/
+			/*若优先级相同同样最后者覆盖前者*/
+		</style>
+	</head>
+	<body>
+		<div class="first-class" id="first-id">
+			<div class="second-class" id="second-id">
+				<div class="third-class" id="third-id">
+					我是一个p标签
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

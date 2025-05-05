@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CSS之属性</title>
+		<style type="text/css">
+			p {
+				/*两种表示颜色的方法*/
+				background-color: rgb(520, 13, 14);
+				color: #4effcc;
+				/*font-family表示字体群，当首个字体不能识别则展示则依次向后识别并展示*/
+				font-family: "华文琥珀", "楷体", "微软雅黑";
+				/*font-size设置字体大小，默认大小16px*/
+				font-size: 20px;
+			}
+			span {
+				/*也可用xx-large等表示大(小，中)号*/
+				/*font-size: xx-large;*/
+				/*
+			larger表示子元素中比父元素更大一号，此外还有smaller
+			也可用font-size: 80%;表示是父元素的80%
+			也可用font-size: 0.8em;表示是父元素的80%
+			*/
+				font-size: larger;
+			}
+			#one {
+				/*控制字体样式倾斜*/
+				font-style: italic;
+			}
+			#two {
+				/*
+			控制字体粗细，从细到粗为lighter，normal，bold，bolder，但有些字体不支持最粗
+			数值范围100-900
+			*/
+				font-weight: bolder;
+			}
+		</style>
+	</head>
+	<body>
+		<p>
+			kimoji
+			<span>大狗大狗叫叫叫</span>
+			kimoji
+		</p>
+		<p id="one">520</p>
+		<p id="two">1314</p>
+	</body>
+</html>

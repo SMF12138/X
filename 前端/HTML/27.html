@@ -3,9 +3,41 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>CSS之层叠样式表</title>
+	<style type="text/css">
+		/*
+		选择器优先级，行内>>id>属性=伪类>类>元素>全局>>传
+	    内部和外部会根据顺序都加载到文档中形成文档流，同级的样式后者覆盖前者
+		若在属性后加入!important修饰，则优先级跃升为最高
+		父容器的样式会传递给子样式，但这种传递的优先级最低
+		*/
+		#one{
+			color: yellow;
+		}
+
+		.oneClass{
+			color: red;
+		}
+
+		p{
+			color: blue !important;
+		}
+
+		div{
+			background-color: yellow;
+		}
+
+		span{
+			background-color: blue;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
-	
+	<p style="color: gray;" id="one" class="oneClass">段落</p>
+	<div>
+		段落
+		<span>行内</span>
+	</div>
 </body>
 </html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>元素转换</title>
+	<style type="text/css">
+		#one{
+			/*
+			将行级元素设置成块级元素，此外还有none不显示样式(不保留空间)
+			inline设置成行内元素，inline-block设置成行内块元素
+			*/
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">
+			<span id="one">span</span>
+			<span id="two">span</span>
+		</div>
+	</div>
+</body>
+</html>
