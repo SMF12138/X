@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>函数</title>
+		<script type="text/javascript">
+			function add1(a, b) {
+				return a + b;
+			}
+			console.log(add1(5, 6));
+			// 函数表达式
+			var add2 = function (a, b) {
+				return a + b;
+			};
+			console.log(add2(5, 6));
+			// 函数的arguments对象，包含参数长度等信息，是对实参的一种封装
+			function fun(a, b, c) {
+				console.log(arguments);
+				console.log(arguments.length);
+				// 下面这两种方法是等价的，都是对方法的引用
+				console.log(fun);
+				console.log(arguments.callee);
+				// 通过arguments对象来实现获取未传的参数
+				console.log(arguments[0]);
+				console.log(arguments[1]);
+				console.log(arguments[2]);
+				console.log(arguments[3]);
+			}
+			fun(1, 2, 3);
+			fun(1, 2);
+			fun(1, 2, 3, 4);
+			// JS中局部变量就是函数内变量，全局变量就是函数外变量，JS中没有代码块概念
+			if(true){
+				var num = 10;
+			}
+			// 这里和其他语言不同，JS这里代码块内视为全局变量，可以访问
+			console.log(num);
+		</script>
+	</head>
+	<body></body>
+</html>

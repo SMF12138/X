@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JS的内置对象</title>
+		<script type="text/javascript">
+			var str = "helloworld";
+			console.log(str.length);
+			// 获取字符串中指定位字符
+			console.log(str.charAt(0));
+			// 索引越界时不像Java一样报错，而是什么都不返回
+			console.log(str.charAt(10));
+			// 返回第一次出现位置，没出现返回-1
+			console.log(str.indexOf("world"));
+			// 可在数组中指定不同类型的元素
+			var arr1 = ["1", "2", "3", 1, 2, true];
+			var arr2 = new Array("1", "2", "3", 1, 2, true);
+			// 获取并改变数组长度
+			console.log(arr1.length);
+			arr1.length = 3;
+			console.log(arr1.length);
+			console.log(arr1);
+			// 长度扩大成10时只剩下3个元素，其余7个为空
+			arr1.length = 10;
+			console.log(arr1.length);
+			console.log(arr1);
+			// 访问元素时如果索引不存在返回undefined
+			console.log(arr1[0]);
+			console.log(arr1[10]);
+			// 动态添加元素，注意JS具有懒加载的性质，在控制台点开箭头时会重新加载代码，因此除非使用快照函数否则数组箭头下的内容总是一样的
+			var arr3 = [];
+			arr3[0] = 1;
+			arr3[3] = 2;
+			// push添加元素在最后端，返回添加后的长度
+			var len1 = arr3.push(3);
+			console.log(len1);
+			console.log(arr3);
+			// push添加元素在最前端，返回添加后的长度
+			var len2 = arr3.unshift(0);
+			console.log(len2);
+			console.log(arr3);
+			// pop删除最后一个元素并返回值，长度减少
+			var val1 = arr3.pop();
+			console.log(val1);
+			console.log(arr3);
+			// pop删除第一个元素并返回值，长度减少
+			var val2 = arr3.pop();
+			console.log(val2);
+			console.log(arr3);
+			// 数组的遍历
+			for (var i = 0; i < arr1.length; i++) {
+				console.log(arr1[i]);
+			}
+		</script>
+	</head>
+	<body></body>
+</html>

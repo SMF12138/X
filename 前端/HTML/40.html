@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>绝对定位</title>
+		<!-- 绝对定位是以父容器的定位为标准 -->
+		<style type="text/css">
+			#div1 {
+				background-color: yellow;
+				position: absolute;
+				right: 0px;
+				top: 0px;
+			}
+			/*当父容器没有定位时，绝对定位走浏览器默认*/
+			#div2 {
+				background-color: red;
+				width: 500px;
+				height: 500px;
+				/*加入定位后，绝对定位以父容器为标准*/
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div2">
+			父容器
+			<div id="div1">绝对定位</div>
+		</div>
+	</body>
+</html>

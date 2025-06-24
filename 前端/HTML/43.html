@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JS输出</title>
+		<script type="text/javascript">
+			// console.log表示将数据输出到控制台
+			console.log("hello world");
+		</script>
+		<script src="js/index.js">
+			// 通过相对路径引入了外部js文件，执行按照顺序无优先级
+			/*
+			   变量必须由字母，_$数字组成，不能由数字开头
+			   不能使用关键字，区分大小写，小驼峰命名法
+			*/
+			var name;
+			var $name;
+			var _name;
+			var user;
+			var USER;
+		</script>
+		<script>
+			// 赋值方法与Java是相同的
+			var num1 = 1,
+				num2 = 2;
+			console.log(num1);
+			console.log(num2);
+		</script>
+	</head>
+	<body></body>
+</html>

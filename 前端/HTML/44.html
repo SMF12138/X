@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JS基本数据类型</title>
+		<script type="text/javascript">
+			var age = 18;
+			console.log(age);
+			// typeof是取变量的类型
+			console.log(typeof age);
+			var price = 11.9;
+			console.log(typeof price);
+			var max = 1 / 0;
+			// JS中无穷不报错而是用Infinity表示
+			console.log(max);
+			console.log(typeof max);
+			// parseFloat为数据转字符串，由于111a不是数字，会舍弃a
+			var num1 = parseFloat("111a");
+			console.log(num1);
+			console.log(typeof num1);
+			// 由于开头就不算是数，转成NaN，仍属于Number类型
+			var num2 = parseFloat("a111");
+			console.log(num2);
+			console.log(typeof num2);
+			var b1 = true;
+			var b2 = false;
+			console.log(b1);
+			console.log(b2);
+			console.log(typeof b1);
+			console.log(typeof b2);
+			var b3 = 5 > 3;
+			console.log(b3);
+			//如果声明了但未定义，值和类型都是undefined
+			var un;
+			console.log(un);
+			console.log(typeof un);
+			// JS中字符串不区分单双引号
+			var str = "helloworld";
+			console.log(str);
+			console.log(typeof str);
+			// 不指向任何内容就是null类型(即object，这是JS设计上的一个BUG)
+			var obj = null;
+			console.log(obj);
+			console.log(typeof obj);
+		</script>
+	</head>
+	<body></body>
+</html>

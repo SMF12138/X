@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JS类型的转换</title>
+		<script type="text/javascript">
+			// 将字符串转换成Number
+			var num1 = Number("123");
+			// 若字符串不能表示为数字形式则值为NaN
+			var num2 = Number("a123");
+			// 布尔类型转换时0，-0，null，""，false，undefined或NaN时转化成false，其他值转为true
+			var b = Boolean(0);
+			// String类型转换和Javac差不多，基本都能转
+			var s = String(null);
+			// parseInt可以将字符串的最前数字部分转成整数，并且忽略最前空格(但不能忽略中间空格)
+			console.log(parseInt(" 1 23xx123"));
+			// parseFloat可以将字符串的最前数字部分转成浮点数，并且忽略最前空格(但不能忽略中间空格)
+			console.log(parseFloat(" 123.4 5xx12"));
+			// 关于JS运算，赋值和Java高度一致则省略，但注意JS中/可以得到小数结果
+			console.log(10 / 3);
+			// 下面结果和Java一样
+			var i = 1;
+			console.log(i++ + ++i);
+			// 在JS中，下面式子是相等的
+			console.log(5 == "5");
+			// 如果要区别类型可用===
+			console.log(5 === "5");
+			// 如果字符串加数字则拼接成字符串(隐式转换)
+			console.log(5 + "5");
+			// 如果数字加有意义的值转成数字，值代表1
+			console.log(5 + true);
+			// 值代表0
+			console.log(5 + false);
+			// 结果为NaN
+			console.log(5 + NaN);
+			console.log(5 + undefined);
+			// NaN与其他数作比较时永远返回false(包括自己)
+			// 下面三个相比是true，和其他永远是false
+			console.log(null == undefined);
+			console.log(null == null);
+			console.log(undefined == undefined);
+		</script>
+	</head>
+	<body></body>
+</html>

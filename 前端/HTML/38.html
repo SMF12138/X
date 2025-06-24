@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>静态定位</title>
+		<!-- 静态定位是文档流默认的位置 -->
+		<style type="text/css">
+			#pos_left {
+				position: static;
+			}
+
+			#pos_right {
+				position: static;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>这是位于正常的标题</h2>
+		<div id="div1">
+			<h2 id="pos_left">这个标题相较于正常位置向左移</h2>
+			<h2 id="pos_right">这个标题相较于正常位置向右移</h2>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>日期对象</title>
+		<script type="text/javascript">
+			// 空值表示当前系统时间
+			var d1 = new Date();
+			console.log(d1);
+			// 给当前时间设置参数年月日时分秒毫秒，注意月是0-11的，如果变量相同新参数会覆盖旧参数
+			var d2 = new Date(2018, 11, 24, 10, 33, 30, 0);
+			console.log(d2);
+			// 设置0默认1970年1月1日00:00:00作为时间原点(中国在原点基础上偏移8小时)
+			var d3 = new Date(0);
+			console.log(d3);
+			// 设置偏移量为一天
+			var d4 = new Date(1000*60*60*24);
+			console.log(d4);
+			// 负数表示往前偏移一天
+			var d4 = new Date(-1000*60*60*24);
+			console.log(d4);
+			// 以字符串的方式创建(这里格式比较宽松，只要年月日时分秒则可解析)
+			var d5 = new Date("October 13 2014 11:13:00");
+			console.log(d5);
+			// 获取日期信息
+			console.log(d5.getFullYear())
+			// 月得到的范围是0-11
+			console.log(d5.getMonth())
+			console.log(d5.getDate())
+			// 设置年份
+			d5.setFullYear(2008);
+			console.log(d5);
+		</script>
+	</head>
+	<body></body>
+</html>
