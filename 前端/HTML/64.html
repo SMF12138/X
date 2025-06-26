@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之事件</title>
+		<script type="text/javascript">
+			// 将点击该元素与事件进行绑定，onload表示页面加载
+			window.onload = function () {
+				// 将元素获取放在函数中，通过这种方法在头部获取对象
+				var ele = document.getElementById("one");
+				console.log("页面加载完毕");
+				console.log(ele);
+			};
+		</script>
+	</head>
+	<body>
+		<div id="one">内容</div>
+		<script></script>
+	</body>
+</html>

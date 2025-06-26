@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>定时器</title>
+		<script type="text/javascript">
+			function fun() {
+				console.log("我是爸爸");
+			}
+			// 循环定时器需传入一个函数和毫秒数，循环执行
+			setInterval(fun, 2000);
+			// 炸弹定时器需传入一个函数和毫秒数，但只执行一次
+			setTimeout(fun, 10000);
+		</script>
+	</head>
+	<body></body>
+</html>

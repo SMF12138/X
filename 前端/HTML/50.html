@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>正则对象</title>
+		<script type="text/javascript">
+			// 规范与其他语言中一致，更多说明可在文档查看
+			// 要求6-12个字符
+			var reg1 = /^\w{6,12}$/;
+			// 也可通过创建对象的方式创建正则表达式
+			var reg2 = new RegExp("^\w{6,12}$");
+			var str = "abc";
+			// 验证失败
+			console.log(reg1.test(str));
+		</script>
+	</head>
+	<body></body>
+</html>

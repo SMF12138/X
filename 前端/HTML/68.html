@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ES6新特性之let关键字</title>
+	</head>
+	<body>
+		<script>
+			// var可以重复定义一个变量，并且后者覆盖前者
+			var a = 10;
+			var a = 20;
+			console.log(a);
+			// let确保变量唯一性，不能已声明或再次声明
+			let aa = 10;
+			if (true) {
+				let b1 = 1;
+				var b2 = 1;
+			}
+			// 如果用let定义变量受代码块限制，无法访问，var则可以
+			console.log(b2);
+			// JS具有变量提升的特性，在创建阶段，会将所有使用 var 声明的变量先于其他代码声明(但不赋值)
+			console.log(c);
+			// 因此后赋值的代码输出结果为undefined
+			var c = 0;
+			// 使用 let 声明的变量不会变量提升，因此必须声明变量必须写在访问变量前
+			let d;
+			console.log(d);
+		</script>
+	</body>
+</html>

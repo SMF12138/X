@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ES6新特性之final关键字</title>
+	</head>
+	<body>
+		<script>
+			// const类似于Java中的final，被其修饰后变成常量，若改变则报错
+			const a = 5;
+			// 再赋值a = 10;则报错
+			console.log(a);
+			const arr = [1, 2, 3, 4];
+			// 禁止对对象引用的更改，arr = [10 ,20 ,30];报错
+			arr[0] = 100;
+			// 但可以对数组内元素进行更改
+			console.log(arr);
+			const n = {
+				name: "zhangsan",
+				age: 23,
+			};
+			// 对于自定义对象也类似，不能再改对象
+			/*const n = {
+				name: "zhangsan",
+				age: 25
+			};*/
+			// 但可以改值
+			n.name = "爸爸";
+			console.log(n);
+		</script>
+	</body>
+</html>

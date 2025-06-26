@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>原型</title>
+	</head>
+
+	<body>
+		<script>
+			let stu = {
+				name: "zhangsan",
+			};
+			// stu.__proto__表示原型对象，每个对象都有原型对象，可以使用原型对象中所有的属性和方法
+			stu.__proto__.eat = function () {
+				console.log("吃饭");
+			};
+			// 类似Java中子类对象调用父类函数
+			stu.eat();
+
+			function Person(name, age) {
+				this.name = name;
+				this.age = age;
+				this.eat = function () {
+					console.log("我吃吃吃");
+				};
+			}
+			function Student(score) {
+				this.score = score;
+			}
+			// 这里prototype表示该对象的原型(父类)
+			Student.prototype = new Person("zhangsan", 23);
+			var student = new Student(80);
+			console.log(student.score);
+			console.log(student.name);
+			console.log(student.age);
+			student.eat();
+			// 在获取属性和函数时会向上不断寻找继承，顶端是Object
+			Object.prototype.drink = function () {
+				console.log("我喝喝喝");
+			};
+			student.drink();
+		</script>
+	</body>
+</html>

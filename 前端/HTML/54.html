@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之Document对象</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="pn" class="cls">老杜</div>
+		<br />
+		<div class="cls">猪猪</div>
+		<br />
+		<input type="checkbox" name="hobby" />抽烟
+		<input type="checkbox" name="hobby" />喝酒
+		<input type="checkbox" name="hobby" />烫头
+		<script>
+			// 应在这里获取对象
+			// getElementById表示根据元素Id返回单个元素对象
+			console.log(document.getElementById("pn"));
+			// getElementsByTagName表示根据标签名获取元素对象数组
+			var eles1 = document.getElementsByTagName("input");
+			console.log(eles1);
+			console.log(eles1[0]);
+			// getElementsByClassName表示根据class属性值获取元素对象数组
+			var eles2 = document.getElementsByClassName("cls");
+			console.log(eles2);
+			for (var i = 0; i < eles2.length; i++) {
+				console.log(eles2[i]);
+			}
+			// getElementsByName表示根据name属性值获取元素对象数组
+			var eles3 = document.getElementsByName("hobby");
+			for (var i = 0; i < eles3.length; i++) {
+				console.log(eles3[i]);
+			}
+		</script>
+	</body>
+</html>

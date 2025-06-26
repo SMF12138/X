@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之事件</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		故乡<select name="city" id="city">
+			<option value="023" id="chongqing">重庆</option>
+			<option value="021" id="beijing">北京</option>
+			<option value="027" id="wuhan">武汉</option>
+			<option value="020" id="shanghai">上海</option>
+		</select>
+		<script>
+			var ele = document.getElementById("city");
+			// 将点击该元素与事件进行绑定，onchange表示改变时
+			ele.onchange = function () {
+				// this.value表示当前改变的表单选中的值
+				console.log("选了" + this.value);
+			};
+		</script>
+	</body>
+</html>

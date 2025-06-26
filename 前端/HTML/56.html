@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之文本对象</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="pn" class="cls"><span>老杜</span></div>
+
+		<script>
+			var ele = document.getElementById("pn");
+			// innerHTML表示获取元素内容，包括标签
+			var inner1 = ele.innerHTML;
+			console.log(inner1);
+			// innerText表示获取元素内容，不包括标签
+			var inner2 = ele.innerText;
+			console.log(inner2);
+			// innerHTML清空原有子标签，修改标签内容
+			ele.innerHTML = "<span>爸爸</span>";
+			// innerHTML清空原有子标签，添加标签内容
+			ele.innerHTML += "<span>爸爸</span>";
+			// innerText清空原有子标签，修改标签内容
+			ele.innerText = "我是你爹";
+			// innerText清空原有子标签，添加标签内容
+			ele.innerText += "我是你爹";
+		</script>
+	</body>
+</html>

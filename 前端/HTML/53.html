@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>自定义对象</title>
+		<script type="text/javascript">
+			var obj1 = new Object();
+			obj1.name = "张三";
+			// 这里this和Java中一样都是指调用函数的对象
+			obj1.sleep = function () {
+				console.log("学生" + this.name + "在睡觉");
+			};
+			console.log(obj1);
+			obj1.sleep();
+			// 也可通过字面量创建对象
+			var obj2 = {
+				name: "张三",
+				age: 18,
+				show: function (girlfriend) {
+					console.log(this.name + "的女朋友是" + girlfriend);
+				},
+			};
+			console.log(obj2.name);
+			console.log(obj2.age);
+			obj2.show("牛子");
+		</script>
+	</head>
+	<body></body>
+</html>

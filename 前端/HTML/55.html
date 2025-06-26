@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之Element对象</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="pn" class="cls">老杜</div>
+		<br />
+		<div class="cls">猪猪</div>
+		<br />
+		<input type="checkbox" name="hobby" />抽烟
+		<input type="checkbox" name="hobby" />喝酒
+		<input type="checkbox" name="hobby" />烫头
+		<script>
+			var ele = document.getElementById("pn");
+			// 获取属性值
+			var attr = ele.getAttribute("class");
+			console.log(attr);
+			// 判断属性是否存在
+			console.log(ele.hasAttribute("class"));
+			console.log(ele.hasAttribute("name"));
+			// 设置或添加属性和值(如果已存在则覆盖原值)
+			ele.setAttribute("name", "powernode");
+			// 移除属性
+			ele.removeAttribute("name");
+		</script>
+	</body>
+</html>

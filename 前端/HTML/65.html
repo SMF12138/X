@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之事件</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<form action="#" id="form">
+			<!-- placeholder为默认值 -->
+			<input type="text" name="username" placeholder="请输入" /><br />
+			<input type="password" name="password" placeholder="请输入" /><br />
+		</form>
+		<!-- button不具备功能，添加什么功能就有什么功能 -->
+		<button id="submit">提交</button>
+		<button id="reset">重置</button>
+		<script>
+			var form = document.getElementById("form");
+			var submit = document.getElementById("submit");
+			var reset = document.getElementById("reset");
+			submit.onclick = function () {
+				// form.submit();表示对表单元素进行提交
+				form.submit();
+			};
+			reset.onclick = function () {
+				// form.reset();表示对表单元素进行重置
+				form.reset();
+			};
+		</script>
+	</body>
+</html>

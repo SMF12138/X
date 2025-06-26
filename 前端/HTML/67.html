@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BOM操作之对象</title>
+	</head>
+	<body>
+		<a href="66.html">点我</a>
+		<button id="btn1">上一页</button>
+		<script>
+			var ele = document.getElementById("btn1");
+			ele.onclick = function(){
+				// history.back()表示跳转到历史记录中当前页面的上一页
+				history.back();
+			}
+		</script>
+	</body>
+</html>

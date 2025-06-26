@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之表单操作</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="parent">
+			<form action="#" method="get">
+				姓名<input type="text" name="username" id="username" /><br />
+				女<input type="radio" class="sex" value="woman" id="1" />
+				男<input type="radio" class="sex" value="man" id="2" /><br />
+				故乡<select id="city">
+					<option value="023" id="chongqing">重庆</option>
+					<option value="021" id="beijing">北京</option>
+					<option value="027" id="wuhan">武汉</option>
+					<option value="020" id="shanghai">上海</option>
+				</select>
+				<input type="submit" />
+			</form>
+		</div>
+
+		<script>
+			// 获取或设置表单的value信息
+			var ele1 = document.getElementById("username");
+			ele1.value = "张三";
+			console.log(ele1.value);
+			// 设置单选框的选中状态
+			var ele2 = document.getElementById("1");
+			ele2.checked = true;
+			// 设置下拉框默认状态
+			var ele3 = document.getElementById("beijing");
+			ele3.selected = true;
+			// 设置禁用效果
+			var ele4 = document.getElementById("2");
+			ele4.disabled = true;
+		</script>
+	</body>
+</html>

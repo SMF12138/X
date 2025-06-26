@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之事件</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		姓名<input type="text" name="username" id="username" /><span
+			id="info"
+		></span>
+		<script>
+			var ele = document.getElementById("username");
+			// 将点击该元素与事件进行绑定，onfocus表示聚焦时
+			ele.onfocus = function () {
+				document.getElementById("info").innerHTML = "变成一坨";
+			};
+			// 将点击该元素与事件进行绑定，onblur表示聚焦时
+			ele.onblur = function () {
+				var reg = /^\w{6,12}$/;
+				if(reg.test(ele.value)){
+				document.getElementById("info").innerHTML = "通过";
+				}else{
+				document.getElementById("info").innerHTML = "不通过";
+				}
+			};
+		</script>
+	</body>
+</html>

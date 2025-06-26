@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之事件</title>
+		<style>
+			.red {
+				background-color: red;
+			}
+			.green {
+				background-color: green;
+			}
+		</style>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="one" class="red">内容</div>
+		<script>
+			var ele = document.getElementById("one");
+			// 将点击该元素与事件进行绑定，onmouseover表示鼠标移入
+			ele.onmouseover = function () {
+				ele.setAttribute("class", "red");
+			};
+			// 将点击该元素与事件进行绑定，onmouseout表示鼠标移出
+			ele.onmouseout = function () {
+				ele.setAttribute("class", "green");
+			};
+		</script>
+	</body>
+</html>

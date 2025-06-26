@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之改变结点</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="parent">
+			<h1 id="title">我是爸爸</h1>
+		</div>
+
+		<script>
+			// createElement添加元素标签
+			var p1 = document.createElement("p");
+			var p2 = document.createElement("p");
+			p1.innerText = "动力节点";
+			p2.innerText = "动力节点";
+			var parent = document.getElementById("parent");
+			// appendChild表示插入子节点
+			parent.appendChild(p1);
+			// insertBefore表示插入标签在指定的标签前(注意如果插入的是同一个标签会覆盖前面的操作)
+			var title = document.getElementById("title");
+			parent.insertBefore(p2, title);
+			// removeChild表示通过父结点移除子结点
+			parent.removeChild(title);
+			// 子元素先找到父元素再移除自己
+			title.parentNode.removeChild("title");
+		</script>
+	</body>
+</html>

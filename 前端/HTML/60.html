@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之事件</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="one">动力节点</div>
+		<input type="button" id="btn" value="狠狠地点我">
+		<script>
+			var btn = document.getElementById("btn");
+			// 将点击该元素与事件进行绑定，onclick表示点击时
+			btn.onclick = function(){
+				document.getElementById("one").innerHTML="变成一坨";
+			}
+		</script>
+	</body>
+</html>

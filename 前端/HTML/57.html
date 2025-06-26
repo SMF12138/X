@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DOM操作之元素关系操作</title>
+		<script type="text/javascript">
+			// 由于加载顺序原因，代码在头部时无法获取对象
+		</script>
+	</head>
+	<body>
+		<div id="parent">
+			<button id="child1">子节点1</button>
+			<button id="child2">子节点2</button>
+		</div>
+
+		<script>
+			var ele1 = document.getElementById("child1");
+			// parentNode表示获取该元素的直接父元素
+			var ele2 = ele1.parentNode;
+			console.log(ele2);
+			var ele3 = document.getElementById("parent");
+			// children表示获取该元素的多个子元素
+			var ele4 = ele3.children;
+			for (var i = 0; i <= ele4.length; i++) {
+				console.log(ele4[i]);
+			}
+		</script>
+	</body>
+</html>
