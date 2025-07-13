@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>模版语法之指令语法 v-</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">
+			<h1>{{msg}}</h1>
+			<!-- v-once表示只渲染元素一次，再次渲染时元素及所有子节点视为静态内容 -->
+			<h1 v-once>{{msg}}</h1>
+			<!-- v-if需要一个布尔类型的数据，true表示该标签会渲染到浏览器中，false表示该标签不会渲染到浏览器中 -->
+			<h1 v-if="b>a">{{msg}}</h1>
+		</div>
+		<script>
+			// 语法格式<标签 v-指令名:参数="表达式"></>
+			// 其中表达式与插值语法中可写的相同，但指令表达式不能外加{{}}
+			// 有的指令无参数表达式，有的不需要参数，有的都需要
+			new Vue({
+				data: {
+					msg: "abcde",
+					a: 1,
+					b: 0,
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

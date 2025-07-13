@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>数据代理机制</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- ES5新增了这个方法，用于新增属性或设置原有属性 -->
+		<div class="app">{{name}}</div>
+		<script>
+			/*
+			 这里内部自动创立VM._data = { name: "M" }
+			 并且使用了代理机制
+			 Object.defineProperty(VM, "name", {
+				 get() {
+					 return vm._data.name;
+				 },
+				 set(val) {
+				 	vm._data.name = val;
+				 },
+			 });
+			 也就是VM._data相当于target对象，而VM相当于对这个对象的代理
+			 所以VM.name其实是通过代理机制，获取VM._data的一个映射
+			*/
+			const VM = new Vue({
+				data: {
+					name: "M",
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

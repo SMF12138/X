@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Object.defineProperty()</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- ES5新增了Object.defineProperty()，用于新增属性或设置原有属性 -->
+		<script>
+			let phone1 = {};
+			// 给用例新增属性并赋值，并设置为可写(控制台修改)
+			Object.defineProperty(phone1, "color", {
+				value: "太空灰",
+				writable: true,
+			});
+			let phone2 = {};
+			// 设置临时变量防止在函数中使用this时递归调用，将值表现出来但并不存于某一属性
+			let temp;
+			// 注意配置项有getter和setter的时候，value，writable配置项不能存在，他们不能混用，这就是为什么写了两个不同用例
+			Object.defineProperty(phone2, "color", {
+				// getter方法配置项，不需要手动调用，读取自动调用
+				get: function () {
+					console.log("狠狠的读取你");
+					// getter方法的返回值就代表了属性的value值
+					return temp;
+				},
+				// setter方法配置项，不需要手动调用，修改自动调用
+				set: function (val) {
+					// setter方法包含一个参数，这个参数可以接收传入的值，一般写作val
+					console.log("狠狠的修改你", val);
+					temp = val;
+				},
+			});
+			let phone3 = {};
+			// 在控制台中访问phone3，出现color:(…)，说明属性本身是没有值的，而…取决于点击时get方法的返回结果
+			Object.defineProperty(phone3, "color", {
+				// ES6中方法有了省略写法
+				get() {
+					return temp;
+				},
+				set(val) {
+					temp = val;
+				},
+			});
+		</script>
+	</body>
+</html>

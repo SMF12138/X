@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>初识MVVM分层思想</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">V:<input type="text" v-model="name" /></div>
+		<script>
+			/*
+			 MVVM是指Model(数据)-ViewModel(视图模型)-View(视图)
+			 其中VM是核心，解决了数据改动大篇幅操作DOM元素的问题	
+			 M改变，VM(数据绑定Data Bindings)自动更新V
+			 V改变，VM(数据监听DOM Listeners)自动更新M
+			 不再需要进行DOM的更改
+			*/
+			const VM = new Vue({
+				data: {
+					name: "M",
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

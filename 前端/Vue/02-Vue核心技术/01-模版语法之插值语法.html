@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>模版语法之插值语法{{}}</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">
+			<!-- 插值语法中可以写在data中声明的变量(定义的全局变量不行) -->
+			<h1>{{msg}}</h1>
+			<!-- 插值语法中可以写在data中声明的函数(定义的全局函数不行) -->
+			<h1>{{sayHHoL()}}</h1>
+			<!-- 插值语法中可以写常量 -->
+			<h1>{{3.14}}</h1>
+			<!-- 插值语法中可以写合法的JS表达式(不能是语句) -->
+			<h1>{{3.14 + 3 + msg}}</h1>
+			<h1>{{msg ? '11' : '00'}}</h1>
+			<!-- split('')表示按字符分割转数组，join()表示将数组拼成字符串(不传参默认逗号隔开) -->
+			<h1>{{msg.split('').reverse().join()}}</h1>
+			<!-- 全局变量白名单也可以放在其中 -->
+			<h1>{{Date}}</h1>
+			<h1>{{Date.now()}}</h1>
+			<h1>{{Math}}</h1>
+			<h1>{{Math.ceil(3.14)}}</h1>
+		</div>
+		<script>
+			new Vue({
+				data: {
+					msg: "abcde",
+					sayHHoL: function () {
+						console.log("HHoL");
+					},
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

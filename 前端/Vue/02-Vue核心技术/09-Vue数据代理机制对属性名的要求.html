@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>数据代理机制</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">{{name}}</div>
+		<script>
+			// Vue实例不会给以_或$开头的属性名作数据代理，避免覆盖VM原有属性(和原有框架冲突)
+			const VM = new Vue({
+				data: {
+					name: "M",
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

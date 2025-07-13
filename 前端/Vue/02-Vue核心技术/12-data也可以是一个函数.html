@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>data也可以是一个函数</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<!-- 安装我们自己的Vue -->
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">{{name}}</div>
+		<script>
+			// data如果是函数，返回值必须是对象{}，其中: function可省
+			const VM = new Vue({
+				data: function () {
+					return {
+						name: "M",
+					};
+				},
+				el: ".app",
+			});
+			let phone1 = { name: "苹果" };
+			Object.defineProperty(phone1, "color", {
+				value: "奶奶绿",
+				// enumerable表示该属性是否可遍历，如果不可遍历Object.keys(phone)访问不到该属性
+				enumerable: true,
+				// configurable表示该属性是否可删除
+				configurable:true
+			});
+		</script>
+	</body>
+</html>

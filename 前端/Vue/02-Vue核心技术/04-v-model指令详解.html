@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>v-model指令讲解</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">
+			<!-- v-model也可以进行数据绑定，但不同于v-bind单项数据绑定 -->
+			v-bind指令:<input type="text" v-bind:value="name1" /><br />
+			<!-- v-model是双向数据绑定，视图变化会影响到数据 -->
+			v-model指令:<input type="text" v-model:value="name2" /><br />
+			<!-- v-model只允许在表单类的元素上使用，如input，select，textarea等 -->
+			v-model指令:<input type="text" v-model="name2" /><br />
+			<!-- v-model也有简写形式，v-model:value="表达式"可以简写成v-model="表达式" -->
+		</div>
+		<script>
+			/*
+
+			*/
+			new Vue({
+				data: {
+					name1: "zhagsan",
+					name2: "wangwu",
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

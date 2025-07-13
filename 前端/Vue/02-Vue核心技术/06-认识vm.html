@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>06-认识vm</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- Vue实例中的属性很多，有的以$开始，有的以_开始 -->
+		<!-- 以$开始的是公开属性，供程序员使用 -->
+		<!-- 以_开始的是私有属性，一般很少使用 -->
+		<!-- 通过VM也可以访问实例原型对象(父对象)上的属性 -->
+		<div class="app">{{name}}</div>
+		<script>
+			const VM = new Vue({
+				data: {
+					name: "M",
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

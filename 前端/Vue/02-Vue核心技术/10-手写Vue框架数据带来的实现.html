@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>手写Vue框架数据代理的实现</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<!-- 安装我们自己的Vue -->
+		<script src="../js/myvue.js"></script>
+	</head>
+	<body>
+		<script>
+			// Vue实例不会给以_或$开头的属性名作数据代理，避免覆盖VM原有属性(和原有框架冲突)
+			const VM = new Vue({
+				data: {
+					name: "M",
+					msg: "baba",
+					xx: "daijiubu",
+				},
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>v-bind指令讲解，负责动态绑定</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">
+		<!-- 动态绑定(如果瞎写属性和值理论不会报错但无意义) -->
+		<img v-bind:src="imgPath" />
+		<!-- 静态写死 -->
+		<img src=../img/严夫人.jpg />
+		<!-- v-bind因为常用，提供简写形式 -->
+		<img :src="imgPath" />
+		<input type="text" name="username" :value="username">
+		<!-- 不能这样写-属性:{{变量}}，属性内部插值语法已经移除，只能用v-bind代替 -->
+		<!-- 标签体内用插值语法，属性用指令语法，只需更改数据就可响应式的作用于DOM -->
+		</div>
+		<script>
+			/*
+			 编译前<标签 v-指令名:参数="表达式"></>
+			 编译后<标签 参数="表达式执行结果"></>
+			 即在编译时v-bind后的参数名会被编译为标签属性名
+			 可以使属性产生动态效果，data改变表达式也会改变
+			*/
+			new Vue({
+				data: {
+					imgPath: "../img/严夫人.jpg",
+					username:"JKS"
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>解读Vue框架源代码</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<!-- 安装我们自己的Vue -->
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app">{{name}}</div>
+		<script>
+			/*
+			 源码中下面这行获取了data
+			 var data = vm.$options.data;
+			 源码中下面这行创造了_data这个属性，即data可以为一个函数
+			 data = vm._data = isFunction(data) ? getData(data, vm) : data || {};
+			 _data对数据进行封装，获取时无需再通过代理机制，调用数据时vm._data.xxx
+			 如果程序员不想走代理的方式读取数据可以通过_data和$data，建议使用$data
+			 下面函数是源码核心，其中target为VM，sourceKey为_data，key为name
+			 function proxy(target, sourceKey, key) {
+				 sharedPropertyDefinition.get = function proxyGetter() {
+				  	 return this[sourceKey][key];
+				 };
+				 sharedPropertyDefinition.set = function proxySetter(val) {
+					 this[sourceKey][key] = val;
+				 };
+				 Object.defineProperty(target, key, sharedPropertyDefinition);
+			 }
+			*/
+			const VM = new Vue({
+				data: {
+					name: "M",
+				},
+				el: ".app",
+			});
+		</script>
+	</body>
+</html>
