@@ -1,0 +1,4 @@
+ToolSet: 3.6.1 (local)@D:\CLion反乱码_cygwin64
+Options: 
+
+Options:-DCMAKE_MAKE_PROGRAM=/cygdrive/d/CLion/bin/ninja/cygwin/x64/ninja.exe

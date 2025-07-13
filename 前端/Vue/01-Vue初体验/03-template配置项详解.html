@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>template配置项详解</title>
+		<!-- rel="icon"表示链接类型指向图标，使用插件或其他编译器是自动引入的就不用加 -->
+		<!-- image/x-icon 是最常见的 favicon 格式，表示这是一个图像文件，特别是 .ico 格式的图标 -->
+		<link rel="icon" href="../favicon.ico" type="image/x-icon">
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 注意以下代码只有Vue框架下才能看懂了 -->
+		<div id="app">
+			<div>
+				<h1>{{msg}}</h1>
+				<h1>{{name}}</h1>
+			</div>
+		</div>
+		<script>
+			// Vue.config表示Vue全局配置对象，productionTip设置是否生成生产提示信息，默认值true
+			// 但是由于框架和浏览器版本等原因，这个有时候不管用，可从源码修改 
+			Vue.config.productionTip = false;
+			/* 
+			 template后指定的是模版语句，但是模版语句后只能有一个根节点
+			 只要data数据发生变化，template模版语句一定重新编译
+			 template会把原挂载位置的元素内容替换掉
+			 template模板语句可以不用配置项的形式，而是直接放到原来要挂载的地方，这样同时避免原挂载标签被替换
+			 注意这样原挂载位置就变成了模版语句，会根据数据变化重新编译
+			 此时$mount("#app")的挂载方式也可以不再使用而是用el: "#app"
+			 el: "#app"告诉Vue实例去接管哪个容器(进行编译渲染)
+			*/
+			new Vue({
+				// template: "<div><h1>{{msg}}</h1><h1>{{name}}</h1></div>",
+				data: {
+					msg: "HHHH",
+					name: "动力节点",
+				},
+				el: "#app",
+			});
+		</script>
+	</body>
+</html>

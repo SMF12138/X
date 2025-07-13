@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue实例和容器是一夫一妻制</title>
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div class="app"><h1>{{msg}}</h1></div>
+		<div class="app"><h1>{{msg}}</h1></div>
+		<div class="ppa"><h1>{{msg}}</h1></div>
+		<script>
+			new Vue({
+				// 一个实例只接管第一个被指定的容器
+				data: {
+					msg: "HHHH",
+				},
+				el: ".app",
+			});
+			new Vue({
+				// 一个容器只被第一个被指定的实例接管
+				data: {
+					msg: "aaaa",
+				},
+				el: ".ppa",
+			});
+			new Vue({
+				data: {
+					msg: "bbbb",
+				},
+				el: ".ppa",
+			});
+		</script>
+	</body>
+</html>

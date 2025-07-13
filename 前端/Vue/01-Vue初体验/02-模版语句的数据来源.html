@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>data配置项</title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			/* 
+			 data为模版语句提供数据支持，类型为对象或函数
+			 data配置项的专业叫法叫做Vue实例的数据对象(实际给整个Vue实例提供了数据来源)
+			 如果是对象必须是纯粹的对象(即{key:value}对)
+			 将数据插入到模版语句中需要使用插值语法{{key}}
+			 注意插值语法要严格遵循规范不能有空格
+			*/
+			new Vue({
+				template:
+					"<h1>最近非常火爆的电视剧{{name}}，它的上映时间是2023年1月1日{{releaseTime}}，主角是{{lead.name}}，年龄{{lead.age}}，其他演员包括{{actors[0].name}}，{{actors[0].age}}岁，{{actors[1].name}}，{{actors[1].age}}岁</h1>",
+				data: {
+					name: "狂飙",
+					releaseTime: "2023年1月1日",
+					lead: {
+						name: "小强",
+						age: 40,
+					},
+					actors: [
+						{
+							name: "安心",
+							age: 40,
+						},
+						{
+							name: "搞起蓝",
+							age: 30,
+						},
+					],
+				},
+			}).$mount("#app");
+		</script>
+	</body>
+</html>
