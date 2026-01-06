@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>methods实现原理</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <!-- 安装我们自己的Vue -->
+        <script src="../js/myvue.js"></script>
+    </head>
+
+    <body>
+        <script>
+            const VM = new Vue({
+                data: {
+                    name: "hh",
+                },
+                methods: {
+                    add() {
+                        alert("hh");
+                    },
+                    dda() { 
+                        alert("hnm");
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

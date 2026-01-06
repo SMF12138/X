@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>按键修饰符</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <!-- 通过按键修饰符，使只要是enter触发的修饰符都执行方法 -->
+            <input type="text" @keyup.enter="getInfo" />
+            <!-- 键值也可以 -->
+            <input type="text" @keyup.13="getInfo" />
+            <!-- 注意tab只能用keydown -->
+            <input type="text" @keydown.tab="getInfo" />
+            <!-- 其他键值要符合下面转换标准 -->
+            <input type="text" @keydown.page-down="getInfo" />
+            <!-- 自定义按键修饰符huiche代表回车 -->
+            <input type="text" @keyup.huiche="getInfo" />
+            <!-- 对于系统修饰键ctrl，alt，shift，meta对于keydown来说，只要按下这些键就会触发事件，对于keyup来说，需要按下组合键并松开后才触发 -->
+            <input type="text" @keydown.ctrl="getInfo" />
+            <input type="text" @keyup.ctrl="getInfo" />
+             <!-- 连用只有ctrl+i触发 -->
+            <input type="text" @keyup.ctrl.i="getInfo" />
+        </div>
+        <script>
+            // 自定义按键修饰符huiche代表回车
+            Vue.config.keyCodes.huiche = 13;
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "事件修饰符",
+                },
+                methods: {
+                    getInfo(e) {
+                        console.log(e.target.value);
+                        // 手动达到修饰符效果
+                        // if (e.keyCode === 13) {
+                        //     console.log(e.target.value);
+                        // }
+                        console.log(e.key);
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

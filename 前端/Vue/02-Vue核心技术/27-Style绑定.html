@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Style绑定</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            .static {
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <!-- 静态方法 -->
+            <div class="static" style="blackground-color: green">{{name}}</div>
+            <!-- 动态字符串形式 -->
+            <div class="static" :style="myStyle">{{name}}</div>
+            <!-- 动态对象形式，连接符改写成驼峰 -->
+            <div class="static" :style="{blackgroundColor: 'green'}">{{name}}</div>
+            <div class="static" :style="classObj">{{name}}</div>
+            <!-- 动态数组形式 -->
+            <div class="static" :style="styleArray">{{name}}</div>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "Class绑定之数组形式",
+                    myStyle: "blackground-color:gray;",
+                    classObj: {
+                        blackgroundColor: "green",
+                    },
+                    styleArray:[
+                        {blackgroundColor:'green'},
+                        {color:'red'}
+                    ]
+                },
+            });
+        </script>
+    </body>
+</html>

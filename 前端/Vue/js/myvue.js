@@ -28,5 +28,10 @@ class Vue {
 				});
 			}
 		});
+		// 获取所有的方法名
+		Object.keys(options.methods).forEach((methodName, index) => {
+			console.log(methodName);
+			this[methodName] = options.methods[methodName];
+		});
 	}
 }

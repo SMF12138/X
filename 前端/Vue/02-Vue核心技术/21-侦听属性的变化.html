@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>侦听/监视 属性的变化</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            数字: <input type="text" v-model="number" /> <br />
+            数字: <input type="text" v-model="a.c" /> <br />
+            后期添加监视: <input type="text" v-model="number2" /> <br />
+            数字: <input type="text" v-model="a.b" />
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+
+                data: {
+                    name: "侦听属性的变化",
+                    number2: 0,
+                    number: 0,
+                    a: {
+                        b: 0,
+                        c: 0,
+                    },
+                },
+                computed: {
+                    hehe() {
+                        // 这里依赖了属性number，当发生变动时计算属性改变从而监视生效
+                        return "haha" + this.number;
+                    },
+                },
+                watch: {
+                    // 可以监视多个属性
+                    number: {
+                        // immediate设置使初始化时调用一次handler
+                        immediate: true,
+                        // 固定格式handler，实际是回调函数，当属性变化时就会自动调用
+                        // handler有两个参数，第一个是新值，第二个是老值
+                        handler(newValue, oldValue) {
+                            console.log("狠狠监视你");
+                            console.log(newValue, oldValue);
+                            // this此时是Vue实例，因此同样不建议使用箭头函数
+                            console.log(this);
+                        },
+                    },
+                    // 也可以监视计算属性
+                    hehe: {
+                        handler(newValue, oldValue) {
+                            console.log("狠狠监视你");
+                            console.log(newValue, oldValue);
+                        },
+                    },
+                    // 下面是只包含handler的简写形式，但无法添加配置
+                    // hehe(newValue, oldValue) {
+                    //     console.log(newValue, oldValue);
+                    // },
+                    //无法直接监视b属性，需要写成下面形式，多级结构要加引号
+                    "a.b": {
+                        handler(newValue, oldValue) {
+                            console.log("@");
+                        },
+                    },
+                    a: {
+                        // 开启多级监视，a属性下子属性发生变动时即调用
+                        deep: true,
+                        handler(newValue, oldValue) {
+                            console.log("@");
+                        },
+                    },
+                },
+            });
+            // 后期添加监视语法
+            VM.$watch("number2", {
+                immediate: true,
+                deep: true,
+                handler(newValue, oldValue) {
+                    console.log("狠狠监视你");
+                    console.log(newValue, oldValue);
+                },
+            });
+            // 后期也有简写形式
+            // VM.$watch("number2", function (newValue, oldValue) {
+            //     console.log(newValue, oldValue);
+            // });
+        </script>
+    </body>
+</html>

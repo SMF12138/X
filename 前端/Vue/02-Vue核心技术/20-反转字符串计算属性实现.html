@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>反转字符串计算属性实现</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            输入的信息:<input type="text" v-model="info" /><br />
+            <!-- 与methods不同，computed的计算属性只调用一次get方法就可渲染，运用了缓存机制使得效率更高 -->
+            反转的信息:{{reverseInfo}}<br />
+            反转的信息:{{reverseInfo}}<br />
+            反转的信息:{{reverseInfo}}<br />
+            反转的信息:{{reverseInfo}}<br />
+            反转的信息:{{reverseInfo}}<br />
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "反转字符串案例",
+                    info: "",
+                },
+                computed: {
+                    // 定义多个计算属性
+                    reverseInfo: {
+                        // 第一次读取计算属性的时候会调用一次get，如果关联的data的值变化则再次重新调用
+                        get() {
+                            console.log("getter方法调用了");
+                            return this.info.split("").reverse().join("");
+                        },
+                        set(val) {
+                            console.log("setter方法调用了");
+                            // 调用set需要控制台手动赋值，因此很少使用
+                            this.info = val.split("").reverse().join("");
+                        },
+                    },
+                },
+                // 下面是不需要set的简写形式
+                // reverseInfo() {
+                //     return this.info.split("").reverse().join("");
+                // },
+            });
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>关于事件回调函数中的this</title>
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <!-- 安装我们自己的Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <h1>{{name}}</h1>
+        <h1>计数器 {{counter}}</h1>
+        <button @click="counter++">点击我加一</button>
+        <button @click="add">点击我加一</button>
+        <button @click="dda">点击我减一(箭头函数)</button>
+    </div>
+    <script>
+    const VM = new Vue({
+        el: ".app",
+        data: {
+            name: "Vue的事件绑定",
+            counter: 0,
+        },
+        // methods中方法可以通过VM调用，但没有进行数据代理
+        methods: {
+            add() {
+                // 回调函数中的this实际上是Vue实例
+                console.log(VM === this);
+                this.counter++;
+            },
+            dda: () => {
+                // 对于箭头函数来说，this是从父级作用域继承的，因此实例会指向Window
+                console.log(this);
+            },
+        },
+    });
+    </script>
+</body>
+
+</html>

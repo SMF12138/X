@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Class绑定之对象形式</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            .static {
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+            }
+
+            .active {
+                background-color: green;
+            }
+
+            .text-danger {
+                color: red;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <!-- 动静都有 -->
+            <!-- 适用于样式个数名字固定，但需要动态决定是否使用 -->
+            <div class="static" :class="classObj">{{name}}</div>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "Class绑定之数组形式",
+                    classObj: {
+                        active: false,
+                        'text-danger': true
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

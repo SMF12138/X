@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue的事件绑定</title>
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <!-- 安装我们自己的Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <h1>{{name}}</h1>
+        <!-- 使用javascript原生代码如何完成事件绑定 -->
+        <button onclick="alert('hello')">hello</button>
+        <!-- 使用Vue来完成事件绑定 -->
+        <!-- <button v-on:click"alert('hello')">hello</button>是错误的，因为alert('hello')没有被Vue实例管理 -->
+        <button v-on:click="sayHi()">Hi</button>
+        <!-- 简写还包括keydown，mouseover等 -->
+        <button @click="sayWhat()">What</button>
+        <!-- 如果不传参可省略小括号，并且这种写法会自动把 event 作为第一个参数传进去 -->
+        <button @click="sayHello">hello</button>
+        <!-- $event表示传入了事件对象 -->
+        <button @click="sayNM('jack',$event)">NM</button>
+    </div>
+    <script>
+    const VM = new Vue({
+        el: ".app",
+        data: {
+            name: "Vue的事件绑定",
+        },
+        methods: {
+            // 回调函数，点击事件发生事传入对象e
+            sayHello(e) {
+                alert("hello");
+                // 拿到事件对象对应标签文本
+                console.log(e.target.innerText);
+            },
+            sayWhat() {
+                alert("What");
+            },
+            sayHi() {
+                alert("Hi");
+            },
+            sayNM(name, e) {
+                alert("NM " + name);
+                console.log(e.target.innerText);
+            },
+        },
+    });
+    </script>
+</body>
+
+</html>

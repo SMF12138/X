@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>比较大小的案例computed实现</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <!-- 
+    如果可以使用computed，则不使用watch
+    但如果是异步需求(不是立即发生)，则只能使用watch 
+    -->
+        <div id="app">
+            <h1>{{name}}</h1>
+            数字1: <input type="text" v-model="number1" /> <br />
+            数字2: <input type="text" v-model="number2" /> <br />
+            比较大小: {{compareResult}}
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "比较大小案例",
+                    number1: 0,
+                    number2: 0,
+                },
+                computed: {
+                    compareResult() {
+                        let result = this.number1 - this.number2;
+                        // 若采用异步形式，返回时会将值返回给javascript引擎使函数失效
+                        // setTimeout(() => {
+                            if (result == 0) {
+                                return this.number1 + " = " + this.number2;
+                            } else if (result > 0) {
+                                return this.number1 + " > " + this.number2;
+                            } else {
+                                return this.number1 + " < " + this.number2;
+                            }
+                        // }, 3000);
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

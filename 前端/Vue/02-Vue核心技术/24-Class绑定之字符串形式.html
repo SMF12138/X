@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Class绑定之字符串形式</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            .static {
+                border: 1px solid black;
+                background-color: aquamarine;
+            }
+
+            .big {
+                width: 200px;
+                height: 100px;
+            }
+
+            .small {
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <!-- 静态写法 -->
+            <div class="static big">{{name}}</div>
+            <br /><br />
+            <button @click="changeBig">变大</button>
+            <button @click="changeSmall">变小</button>
+            <!-- 动静都有 -->
+            <div class="static" :class="c1">{{name}}</div>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "Class绑定之字符串形式",
+                    c1: "",
+                },
+                methods: {
+                    changeBig() {
+                        this.c1 = "big";
+                    },
+                    changeSmall() {
+                        this.c1 = "small";
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Class绑定之数组形式</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            .static {
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+            }
+
+            .active {
+                background-color: green;
+            }
+
+            .text-danger {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <!-- 静态写法 -->
+            <div class="static active text-danger">{{name}}</div>
+            <!-- 动静都有 -->
+            <div class="static" :class="[c1, c2]">{{name}}</div>
+            <!-- 适用于样式个数和名字都不确定的情况 -->
+            <div class="static" :class="classArray">{{name}}</div>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "Class绑定之数组形式",
+                    c1: "active",
+                    c2: "text-danger",
+                    classArray: ["active", "text-danger"],
+                },
+                methods: {
+                    changeBig() {
+                        this.c1 = "active";
+                    },
+                    changeSmall() {
+                        this.c2 = "text-danger";
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

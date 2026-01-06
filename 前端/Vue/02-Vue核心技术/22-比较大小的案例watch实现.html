@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>比较大小的案例watch实现</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            数字1: <input type="text" v-model="number1" /> <br />
+            数字2: <input type="text" v-model="number2" /> <br />
+            比较大小: {{compareResult}}
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+
+                data: {
+                    name: "比较大小案例",
+                    number1: 0,
+                    number2: 0,
+                    compareResult: "",
+                },
+                watch: {
+                    number1: {
+                        immediate: true,
+                        handler(newValue) {
+                            let result = newValue - this.number2;
+                            setTimeout(() => {
+                                if (result == 0) {
+                                    this.compareResult =
+                                        newValue + " = " + this.number2;
+                                } else if (result > 0) {
+                                    this.compareResult =
+                                        newValue + " > " + this.number2;
+                                } else {
+                                    this.compareResult =
+                                        newValue + " < " + this.number2;
+                                }
+                            }, 3000);
+                        },
+                    },
+
+                    number2: {
+                        immediate: true,
+                        handler(newValue) {
+                            let result = newValue - this.number1;
+                            // setTimeout函数由Window进行调用，因此this指向Window，但箭头函数的this继承自上级
+                            setTimeout(() => {
+                                if (result == 0) {
+                                    this.compareResult =
+                                        newValue + " = " + this.number1;
+                                } else if (result > 0) {
+                                    this.compareResult =
+                                        newValue + " > " + this.number1;
+                                } else {
+                                    this.compareResult =
+                                        newValue + " < " + this.number1;
+                                }
+                            }, 3000);
+                        },
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

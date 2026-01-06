@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>条件渲染</title>
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <script src="../js/vue.js"></script>
+    <style>
+        .static {
+                border: 1px solid black;
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <div v-if="false">{{name}}</div>
+        <div v-if="1 === 1">{{name}}</div>
+        <button @click="counter++">点我加一</button>
+        <h3>{{counter}}</h3>
+        <img :src="imgPath1" v-if="counter % 2 === 1" />
+        <!-- <img :src="imgPath2" v-if="counter % 2 === 0"> -->
+        <!-- 为了提高效率使用v-else配合，但v-else和v-if间不能断开 -->
+        <img :src="imgPath2" v-else />
+        <br /><br />
+        温度:<input type="number" v-model="temprature" /> <br /><br />
+        <!-- 天气:<span v-if="temprature <= 10">寒冷</span>
+        <span v-if="temprature > 10 && temprature <= 25">凉爽</span>
+        <span v-if="temprature > 25">炎热</span> -->
+        <!-- 下面是简写形式，同样不能断开 -->
+        天气:<span v-if="temprature <= 10">寒冷</span>
+        <span v-else-if="temprature > 10 && temprature <= 25">凉爽</span>
+        <span v-else>炎热</span>
+        <br /><br />
+        <!-- v-show通过修改CSS的display属性来达到显示和隐藏，若为v-if则不渲染元素，所以开销更大 -->
+        <!-- 当元素需要频繁的隐藏使用，建议使用v-show -->
+        <!-- 而v-if的页面加载更快，渲染效率高 -->
+        <div v-show="true">你可以看到我吗?</div>
+        <!-- template和div不同在于，不会渲染到页面上，只起到占位符的作用 -->
+        <template v-if="counter === 10">
+            <input type="text" />
+            <input type="checkbox" />
+            <input type="radio" />
+        </template>
+    </div>
+    <script>
+    const VM = new Vue({
+        el: "#app",
+        data: {
+            name: "条件渲染",
+            counter: 1,
+            imgPath1: "../img/严夫人.jpg",
+            imgPath2: "../img/回忆.jpg",
+            temprature: 0,
+        },
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>列表过滤计算属性实现</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <input
+                type="text"
+                placeholder="请输入搜索关键字"
+                v-model="keyword"
+            />
+            <table>
+                <tr>
+                    <th>序号</th>
+                    <th>会员名</th>
+                    <th>年龄</th>
+                    <th>选择</th>
+                </tr>
+                <tr v-for="vip,x of filteredVip" :key="vip.id">
+                    <td>{{x+1}}</td>
+                    <td>{{vip.name}}</td>
+                    <td>{{vip.age}}</td>
+                    <td><input type="checkbox" /></td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    keyword: "",
+                    name: "列表过滤",
+                    vips: [
+                        {
+                            id: "111",
+                            name: "jack",
+                            age: 20,
+                        },
+                        {
+                            id: "222",
+                            name: "lucy",
+                            age: 30,
+                        },
+                        {
+                            id: "333",
+                            name: "james",
+                            age: 40,
+                        },
+                    ],
+                },
+                computed: {
+                    filteredVip() {
+                        return this.vips.filter((vip) => {
+                            return vip.name.indexOf(this.keyword) >= 0;
+                        });
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

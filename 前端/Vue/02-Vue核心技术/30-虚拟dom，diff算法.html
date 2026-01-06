@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>虚拟dom，diff算法</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <table>
+                <tr>
+                    <th>序号</th>
+                    <th>会员名</th>
+                    <th>年龄</th>
+                    <th>选择</th>
+                </tr>
+                <!-- v-for中的key属性若无指定，则自动用index代替，是该dom元素的唯一标识 -->
+                <!-- 采用index作为key效率低，且数据变化时可能发生错乱，因此显式用对象的id作为key -->
+                <tr v-for="vip,x of vips" :key="vip.id">
+                    <td>{{x+1}}</td>
+                    <td>{{vip.name}}</td>
+                    <td>{{vip.age}}</td>
+                    <td><input type="checkbox" /></td>
+                </tr>
+            </table>
+            <button @click="add">添加儿子张稀然</button>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "虚拟dom，diff算法",
+                    vips: [
+                        {
+                            id: "111",
+                            name: "jack",
+                            age: 20,
+                        },
+                        {
+                            id: "222",
+                            name: "lucy",
+                            age: 30,
+                        },
+                        {
+                            id: "333",
+                            name: "james",
+                            age: 40,
+                        },
+                    ],
+                },
+                methods: {
+                    add() {
+                        // unshift在第一个位置添加数据，此时若采用默认key，索引与原来不同所有数据都要重新渲染，效率低
+                        this.vips.unshift({ d: "444", name: "zxr", age: 10 });
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>
