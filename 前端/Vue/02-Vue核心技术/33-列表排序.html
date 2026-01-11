@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>列表过滤计算属性实现</title>
+        <title>列表排序</title>
         <link rel="icon" href="../favicon.ico" type="image/x-icon" />
         <script src="../js/vue.js"></script>
         <style>
@@ -11,9 +11,10 @@
             td {
                 border: 1px solid black;
             }
+
         </style>
     </head>
- 
+
     <body>
         <div id="app">
             <h1>{{name}}</h1>
@@ -22,6 +23,10 @@
                 placeholder="请输入搜索关键字"
                 v-model="keyword"
             />
+            <br />
+            <button @click="type=1">升序</button>
+            <button @click="type=2">降序</button>
+            <button @click="type=0">原序</button>
             <table>
                 <tr>
                     <th>序号</th>
@@ -41,10 +46,10 @@
             const VM = new Vue({
                 el: "#app",
                 data: {
+                    type: 0,
                     keyword: "",
                     name: "列表过滤",
-                    vips: [
-                        {
+                    vips: [{
                             id: "111",
                             name: "jack",
                             age: 20,
@@ -63,9 +68,20 @@
                 },
                 computed: {
                     filteredVip() {
-                        return this.vips.filter((vip) => {
+                        const arr = this.vips.filter((vip) => {
                             return vip.name.indexOf(this.keyword) >= 0;
                         });
+                        if (this.type === 1) {
+                            arr.sort((a, b) => {
+                                return b.age - a.age;
+                            });
+
+                        } else if (this.type === 2) {
+                            arr.sort((a, b) => {
+                                return a.age - b.age;
+                            });
+                        }
+                        return arr;
                     },
                 },
             });

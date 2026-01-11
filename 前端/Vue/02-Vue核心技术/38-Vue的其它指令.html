@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue的其它指令</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+        <style>
+            /*v-cloak可以被Vue识别，配合样式使用使胡子语法不展现，而当Vue加载进来时会干掉v-cloak，从而达到避免闪现的效果*/
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1 v-cloak>{{name}}</h1>
+            <h1 v-pre>加入v-pre无需进行Vue编译，提高加载速度</h1>
+            <!-- v-once只在开始加载时渲染一次，后视为静态不再改变 -->
+            <ul v-once>
+                <li v-for="user,index of users" :key="index">{{user}}</li>
+            </ul>
+            <ul>
+                <li v-for="user,index of users" :key="index">{{user}}</li>
+            </ul>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "Vue的其它指令",
+                    users:['jack','lucy','james']
+                },
+            });
+        </script>
+    </body>
+</html>

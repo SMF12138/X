@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>数组的响应式处理</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{msg}}</h1>
+            <ul>
+                <!-- 通过下标访问数组元素默认不会有响应式处理，可以调用VM.$set()或Vue.set()解决 -->
+                <!-- 更简单的方法是调用push，pop
+                等七种方法 -->
+                <li v-for="user in users">{{user}}</li>
+                <!-- 通过下标访问数组元素下的某个具体属性会有响应式处理 -->
+                <li v-for="vip in vips">{{vip.name}}</li>
+            </ul>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    msg: "响应式与数据劫持",
+                    users: ["jack", "lucy", "james"],
+                    vips: [
+                        { id: "111", name: "zhangsan" },
+                        { id: "222", name: "lisi" },
+                    ],
+                },
+            });
+        </script>
+    </body>
+</html>

@@ -19,9 +19,11 @@ class Vue {
 			 只不过Vue实例内部包含着这个目标对象
 			*/
 				Object.defineProperty(this, propertyName, {
+					// 数据代理
 					get() {
 						return options.data[propertyName];
 					},
+					// 数据劫持
 					set(val) {
 						options.data[propertyName] = val;
 					},

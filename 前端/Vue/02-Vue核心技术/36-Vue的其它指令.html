@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue的其它指令</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <!-- v-text可以将指令内容插入到标签体当中，这种填充以字符串覆盖原有内容 -->
+            <h1 v-text="name">xxxx</h1>
+            <!-- 和前者功能类似，但会将内容解析为html -->
+            <h1 v-html="name">xxxx</h1>
+            <ul>
+                <li v-for="m,index of messageList" :key="index" v-html="m"></li>
+            </ul>
+            <textarea cols="50" rows="10" v-model.lazy="message"></textarea>
+            <br><br>
+            <button @click="save">保存留言</button>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "Vue的其它指令",
+                    message:"",
+                    messageList:[],
+                },
+                methods:{
+                    save(){
+                        this.messageList.push(this.message);
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

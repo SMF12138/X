@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>响应式与数据劫持</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{msg}}</h1>
+            <h1>姓名:{{name}}</h1>
+            <h1>年龄:{{age}}</h1>
+            <h1>年龄:{{a.A}}</h1>
+            <h1>年龄:{{a.B}}</h1>
+            <h1>年龄:{{a.C}}</h1>
+            <h1>年龄:{{a.D}}</h1>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    msg: "响应式与数据劫持",
+                    name: "jackson",
+                    age: 20,
+                    a: {
+                        b: 1,
+                    },
+                },
+            });
+            // 后期添加的数据不会有响应式处理，无getter与setter因此无法渲染
+            VM.$data.a.A = "baba";
+            // 下面为添加响应式对象，注意添加的对象只能是子对象，不能对VM实例或data直接增加对象，否则由于初始化问题会无法渲染
+            // 渲染时因为同在一个父对象，会连同上面静态数据一同渲染
+            VM.$set(VM.a, "B", "baba");
+            Vue.set(VM.$data.a, "C", "baba");
+            // 简写
+            Vue.set(VM.a, "D", "baba");
+        </script>
+    </body>
+</html>

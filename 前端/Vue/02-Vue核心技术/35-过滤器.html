@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>过滤器</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{name}}</h1>
+            <h2>商品价格:{{formatPrice}}</h2>
+            <h2>商品价格:{{formatPrice2()}}</h2>
+            <!-- 过滤器语法，默认传入上一级过滤器的值 -->
+            <h2>商品价格:{{price | filterA | filterB(3)}}</h2>
+            <!-- 可以使用v-bind绑定，但不能使用v-model双向绑定 -->
+            <input type="text" :value="price | filterA | filterB(3)" />
+        </div>
+        <div id="app2">
+            <h1>{{name}}</h1>
+            <!-- 使用全局过滤器 -->
+            <h2>商品价格:{{price | filterC }}</h2>
+        </div>
+        <script>
+            // 定义全局过滤器filterC
+            Vue.filter("filterC", function (val) {
+                if (val === "" || val === undefined || val === null) {
+                    return "-";
+                }
+                return val;
+            });
+            // 局部过滤器不能使用与不同的VM，要使用全局过滤器
+            const VM2 = new Vue({
+                el: "#app2",
+                data: {
+                    name: "过滤器",
+                    price: 20.6,
+                },
+            });
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "过滤器",
+                    price: 50.6,
+                },
+
+                computed: {
+                    formatPrice() {
+                        if (
+                            this.price === "" ||
+                            this.price === undefined ||
+                            this.price === null
+                        ) {
+                            return "-";
+                        }
+                        return this.price;
+                    },
+                },
+                methods: {
+                    formatPrice2() {
+                        if (
+                            this.price === "" ||
+                            this.price === undefined ||
+                            this.price === null
+                        ) {
+                            return "-";
+                        }
+                        return this.price;
+                    },
+                },
+                filters: {
+                    filterA(val) {
+                        if (val === "" || val === undefined || val === null) {
+                            return "-";
+                        }
+                        return val;
+                    },
+                    filterB(val, number) {
+                        // 保留3位小数
+                        return val.toFixed(number);
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

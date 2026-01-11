@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>自定义指令</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <div v-text="name"></div>
+            <div v-text-danger="name"></div>
+            用户名:<input type="text" :value="username" />
+            <div>用户名:<input type="text" v-bind-blue="username" /></div>
+        </div>
+        <div id="app2">
+            <div>用户名:<input type="text" v-bind-blue="username" /></div>
+        </div>
+        <script>
+            // 定义全局指令函数式
+            Vue.directive("bind-blue", function (element, binding) {
+                element.innerText = binding.value;
+                // element.parentNode.style.backgroundColor = "blue";
+            });
+            // 定义全局指令对象式
+            Vue.directive("bind-blue", {
+                bind(element, binding) {
+                    element.value = binding.value;
+                },
+
+                inserted(element, binding) {
+                    element.parentNode.style.backgroundColor = "blue";
+                },
+
+                update(element, binding) {
+                    element.value = binding.value;
+                },
+            });
+            const VM2 = new Vue({
+                el: "#app2",
+                data: {
+                    username: "我是爸爸",
+                },
+            });
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    name: "自定义指令",
+                    username: "jackson",
+                },
+                directives: {
+                    // 函数的执行时机是标签第一次绑定或模版重新解析时，第一个元素为DOM元素，第二个元素为指令与标签抽象出的绑定对象
+                    "text-danger": function (element, binding) {
+                        console.log(element);
+                        console.log(binding);
+                        // binding.value为标签中传入的值
+                        element.innerText = binding.value;
+                        element.style.color = "red";
+                    },
+                    "bind-blue": function (element, binding) {
+                        element.value = binding.value;
+                        // 绑定关系只在内存中，而没有插入到页面，因此element.parentNode父标签为null
+                        // element.parentNode.style.backgroundColor = "blue";
+                    },
+                    // 上面函数式过于粗糙，不能达到对象式的细致要求
+                    "bind-blue": {
+                        // 元素初次绑定调用
+                        bind(element, binding) {
+                            element.value = binding.value;
+                        },
+                        // 元素插入页面调用
+                        inserted(element, binding) {
+                            element.parentNode.style.backgroundColor = "blue";
+                        },
+                        // 元素重新解析时调用
+                        update(element, binding) {
+                            element.value = binding.value;
+                        },
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>
