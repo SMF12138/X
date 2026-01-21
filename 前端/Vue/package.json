@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@volar/vue-language-server": "^1.6.5",
+    "@vue/language-server": "^3.2.2",
+    "prettier": "^3.8.0"
+  }
+}

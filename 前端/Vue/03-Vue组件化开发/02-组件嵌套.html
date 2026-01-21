@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>组件嵌套</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <script>
+            const x1 = {
+                template: " <div><h2>x1组件</h2></div> ",
+            };
+            const x = {
+                template: " <div><h2>x组件</h2><x1></x1></div> ",
+                components: {
+                    // 当组件名和变量名一致时可以使用省略写法
+                    x1,
+                },
+            };
+             const y1 = {
+                template: " <div><h2>x1组件</h2></div> ",
+            };
+            const y = {
+                template: " <div><h2>y组件</h2><y1></y1></div> ",
+                components: {
+                    y1,
+                },
+            };
+            const app = {
+                // 将x组件挂载到app组件上
+                template: " <div><h1>APP组件</h1><x></x><y></y></div> ",
+                components: {
+                    x: x,
+                    y: y,
+                },
+            };
+            const VM = new Vue({
+                el: "#root",
+                // 将标签放在这里更贴近真实开发
+                template:'<app></app>',
+                components: {
+                    app: app,
+                },
+            });
+        </script>
+    </body>
+</html>

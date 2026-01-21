@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VM!VC</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="root">
+            <h1>{{msg}}</h1>
+            <!-- 分别创建一个不同的VueComponent对象，即this -->
+            <user></user>
+            <user></user>
+            <user></user>
+        </div>
+        <script>
+            // 返回的对象为构造函数(类)
+            const user = Vue.extend({
+                template: "<div><h1>user组件</h1></div>",
+                mounted() {
+                    // this指向VueComponent实例，但返回的user是一个全新的VueComponent构造函数
+                    console.log("vc", this);
+                    console.log("VC.counter", this.counter);
+                },
+            });
+            // VM，VC经过投特殊处理(实际上将VC的原型对象的原型对象指向了Vue的原型对象)都指向一个原型对象，因此VM，VC都可以访问counter
+            Vue.prototype.counter = 1000;
+            console.log(
+                "user.prototype.__proto__ === Vue.prototype",
+                user.prototype.__proto__ === Vue.prototype,
+            );
+            const VM = new Vue({
+                el: "#root",
+                data: {
+                    msg: "VM!VC",
+                },
+                components: {
+                    user,
+                },
+                mounted() {
+                    // this指向Vue实例
+                    console.log("vm", this);
+                },
+            });
+            console.log("VM.counter", VM.counter);
+
+            function test() {
+                // 返回的对象为构造函数
+                var Sub = function User() {
+                    this.name = "admin";
+                };
+                return Sub;
+            }
+            let a = test();
+            // 通过构造函数创建对象
+            console.log(new a());
+            // 构造函数(类)
+            function Vip() {}
+            // prototype属性是显式的原型属性，可以获取显式的原型对象
+            let x = Vip.prototype;
+            // 创建实例(对象)
+            let b = new Vip();
+
+            // 隐式原型属性(不建议用)
+            let y = b.__proto__;
+            // 结果为同一个原型对象
+            console.log(x === y);
+            // 给Vip原型对象拓展属性
+            Vip.prototype.counter = 1000;
+            console.log(b.counter);
+        </script>
+    </body>
+</html>

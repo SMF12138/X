@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue的生命周期</title>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+        <script src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <h1>{{msg}}</h1>
+            <h1>{{counter}}</h1>
+            <button @click="add">点我加一</button>
+            <button @click="destroy">点我报废</button>
+        </div>
+        <script>
+            const VM = new Vue({
+                el: "#app",
+                data: {
+                    msg: "Vue的生命周期",
+                    counter: 1,
+                },
+                methods: {
+                    add() {
+                        this.counter++;
+                    },
+                    destroy() {
+                        // 销毁VM
+                        this.$destroy();
+                    },
+                },
+                // 初始阶段，有template编译template，否则编译el，而当el没有时需要VM.$mount(el)手动挂载，即el必须存在
+                beforeCreate() {
+                    // 初始化事件对象，生命周期
+                    console.log("beforeCreate");
+                },
+                created() {
+                    // 进行数据代理和检测
+                    console.log("created");
+                },
+                // 挂载阶段
+                beforeMount() {
+                    // 将虚拟DOM放入内存
+                    console.log("beforeMount");
+                },
+                mounted() {
+                    // 将真实DOM渲染到页面，会覆盖内存中的虚拟DOM
+                    console.log("mounted");
+                },
+                // 更新阶段
+                beforeUpdate() {
+                    // 数据变化，尚未渲染
+                    console.log("beforeUpdate");
+                },
+                updated() {
+                    // 渲染
+                    console.log("updatde");
+                },
+                // 销毁阶段，解绑VM的组件，监听器(高版本)，事件，但不销毁VM
+                beforeDestroy() {
+                    // 仍然绑定，但不能使用，内存可以变化，但无法渲染页面
+                    console.log("beforeDestroy");
+                },
+                destroyed() {
+                    // 已解绑
+                    console.log("destroyed");
+                },
+            });
+        </script>
+    </body>
+</html>
