@@ -43,11 +43,11 @@ export default {
 }
 
 textarea {
-    width: 100%;
+    width: 98%;
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #7cc;
+    border-radius: 15px;
     resize: vertical;
 }
 

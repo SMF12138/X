@@ -1,17 +1,24 @@
 <template>
-    <div class="footer">
-        <button class="small red button">清除已解决</button>
+    <div class="footer" v-show="bugList.length">
+        <button class="small red button" @click="clearResolved">
+            清除已解决
+        </button>
         <span
             >当前儿子总量{{ bugList.length }}个，已解决{{
                 resovledCount
             }}个</span
         >
     </div>
-</template>
+</template> 
 <script>
 export default {
     name: "BugFooter",
-    props: ["bugList"],
+    props: ["bugList", "clearResolvedCallback"],
+    methods: {
+        clearResolved() {
+            this.clearResolvedCallback();
+        },
+    },
     computed: {
         resovledCount() {
             //     let count = 0;
