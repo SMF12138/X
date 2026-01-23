@@ -1,18 +1,24 @@
 <template>
-    <div class="footer">
-        <button class="small red button">清除已解决</button>
+    <div class="footer" v-show="bugList.length">
+        <button class="small red button" @click="clearResolved">
+            清除已解决
+        </button>
         <span
             >当前儿子总量{{ bugList.length }}个，已解决{{
                 resovledCount
             }}个</span
         >
     </div>
-</template>
-
+</template> 
 <script>
 export default {
     name: "BugFooter",
-    props: ["bugList"],
+    props: ["bugList", "clearResolvedCallback"],
+    methods: {
+        clearResolved() {
+            this.clearResolvedCallback();
+        },
+    },
     computed: {
         resovledCount() {
             //     let count = 0;
@@ -23,15 +29,16 @@ export default {
             // },
             // 下面使用ES6数组的reduce方法实现功能
             // 回调函数调用次数为数组总量，返回值是下一次回调的a参数，初始值设为0，b代表当前统计对象
-            const count = this.bugList.reduce((a, b) => {
-                return a + (b.resolved ? 1 : 0);
-            }, 0);
-            return count;
+            // const count = this.bugList.reduce((a, b) => {
+            //     return a + (b.resolved ? 1 : 0);
+            // }, 0);
+            // return count;
+            // 简写方式
+            return this.bugList.reduce((a, b) => a + (b.resolved ? 1 : 0), 0);
         },
     },
 };
 </script>
-
 <style scoped>
 .footer {
     background-color: #ffffff;

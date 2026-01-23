@@ -1,16 +1,13 @@
 <template>
     <div class="app-container">
-        <BugHeader :saveBugCallback="saveBugCallback"></BugHeader>
+        <BugHeader @saveBugCallback="saveBugCallback"></BugHeader>
         <BugList
             :bugList="bugList"
-            :modofyResolvedCallback="modofyResolvedCallback"
-            :deleteByIdCallback="deleteByIdCallback"
-            :selectAllCallback="selectAllCallback"
-            :updateDescCallback="updateDescCallback"
+            @selectAllCallback="selectAllCallback"
         ></BugList>
         <BugFooter
             :bugList="bugList"
-            :clearResolvedCallback="clearResolvedCallback"
+            @clearResolvedCallback="clearResolvedCallback"
         ></BugFooter>
     </div>
 </template>
@@ -28,6 +25,19 @@ export default {
                 { id: "003", desc: "竟然还是张稀然", resolved: false },
             ],
         };
+    },
+    mounted() {
+        // 全局总线绑定事件
+        this.$bus.$on("modofyResolvedCallback", this.modofyResolvedCallback);
+        this.$bus.$on("deleteByIdCallback", this.deleteByIdCallback);
+        this.$bus.$on("updateDescCallback", this.updateDescCallback);
+    },
+    // 注意组件销毁前要给总线事件解绑
+    beforeDestroy() {
+        this.$bus.$off(
+            ["modofyResolvedCallback", "deleteByIdCallback"],
+            "updateDescCallback",
+        );
     },
     methods: {
         saveBugCallback(bug) {
