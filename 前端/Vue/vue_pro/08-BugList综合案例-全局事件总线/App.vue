@@ -12,7 +12,6 @@
     </div>
 </template>
 <script>
-import pubsub from "pubsub.js";
 import BugHeader from "./components/BugHeader.vue";
 import BugList from "./components/BugList.vue";
 import BugFooter from "./components/BugFooter.vue";
@@ -28,10 +27,10 @@ export default {
         };
     },
     mounted() {
-        // 订阅消息
-        pubsub.subscribe('modofyResolvedCallback',this.modofyResolvedCallback )
-        pubsub.subscribe('deleteByIdCallback',this.deleteByIdCallback )
-        pubsub.subscribe('updateDescCallback',this.updateDescCallback )
+        // 全局总线绑定事件
+        this.$bus.$on("modofyResolvedCallback", this.modofyResolvedCallback);
+        this.$bus.$on("deleteByIdCallback", this.deleteByIdCallback);
+        this.$bus.$on("updateDescCallback", this.updateDescCallback);
     },
     // 注意组件销毁前要给总线事件解绑
     beforeDestroy() {
@@ -45,7 +44,7 @@ export default {
             // 注意由于不能从子组件中修改数据，因此将子组件对象传入父组件进行修改(通过props将父函数传入子组件)
             this.bugList.unshift(bug);
         },
-        modofyResolvedCallback(temp,bugId) {
+        modofyResolvedCallback(bugId) {
             this.bugList.forEach((bug) => {
                 if (bug.id === bugId) {
                     bug.resolved = !bug.resolved;

@@ -1,20 +1,18 @@
 <template>
     <div class="app-container">
-        <BugHeader :saveBugCallback="saveBugCallback"></BugHeader>
+        <BugHeader @saveBugCallback="saveBugCallback"></BugHeader>
         <BugList
             :bugList="bugList"
-            :modofyResolvedCallback="modofyResolvedCallback"
-            :deleteByIdCallback="deleteByIdCallback"
-            :selectAllCallback="selectAllCallback"
-            :updateDescCallback="updateDescCallback"
+            @selectAllCallback="selectAllCallback"
         ></BugList>
         <BugFooter
             :bugList="bugList"
-            :clearResolvedCallback="clearResolvedCallback"
+            @clearResolvedCallback="clearResolvedCallback"
         ></BugFooter>
     </div>
 </template>
 <script>
+import pubsub from "pubsub.js";
 import BugHeader from "./components/BugHeader.vue";
 import BugList from "./components/BugList.vue";
 import BugFooter from "./components/BugFooter.vue";
@@ -29,19 +27,37 @@ export default {
             ],
         };
     },
+    mounted() {
+        // 订阅消息，注意这里没有直接将函数写到第二个参数里，而是通过this调用
+       pid1 =  pubsub.subscribe("modofyResolvedCallback", this.modofyResolvedCallback);
+        pid1 = pubsub.subscribe("deleteByIdCallback", this.deleteByIdCallback);
+        pid1 = pubsub.subscribe("updateDescCallback", this.updateDescCallback);
+    },
+    // 注意组件销毁前要给总线事件解绑
+    beforeDestroy() {
+        this.$bus.$off(
+            ["modofyResolvedCallback", "deleteByIdCallback"],
+            "updateDescCallback",
+        );
+    },
+    beforeDestroy(){
+        pubsub.unscribe.pid1;
+        pubsub.unscribe.pid2;
+        pubsub.unscribe.pid3;
+    },
     methods: {
         saveBugCallback(bug) {
-            // 注意由于不能从子组件中修改数据，因此将子组件对象传入父组件进行修改(通过props将父函数传入子组件)
             this.bugList.unshift(bug);
         },
-        modofyResolvedCallback(bugId) {
+        // 注意第一个参数temp为订阅名，仅起到占位作用
+        modofyResolvedCallback(temp, bugId) {
             this.bugList.forEach((bug) => {
                 if (bug.id === bugId) {
                     bug.resolved = !bug.resolved;
                 }
             });
         },
-        deleteByIdCallback(bugId) {
+        deleteByIdCallback(temp, bugId) {
             this.bugList = this.bugList.filter((bug) => {
                 return bug.id !== bugId;
             });
@@ -56,10 +72,10 @@ export default {
                 return !bug.resolved;
             });
         },
-        updateDescCallback(bugId, newDesc) {
+        updateDescCallback(temp, bugObj) {
             this.bugList.forEach((bug) => {
-                if (bug.id === bugId) {
-                    bug.desc = newDesc;
+                if (bug.id === bugObj.id) {
+                    bug.desc = bugObj.desc;
                     return;
                 }
             });

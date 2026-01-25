@@ -24,9 +24,6 @@
                     v-for="bug of bugList"
                     :key="bug.id"
                     :bug="bug"
-                    :modofyResolvedCallback="modofyResolvedCallback"
-                    :deleteByIdCallback="deleteByIdCallback"
-                    :updateDescCallback="updateDescCallback"
                 ></BugItem>
             </tbody>
         </table>
@@ -36,28 +33,9 @@
 import BugItem from "./BugItem.vue";
 export default {
     name: "BugList",
-    props: [
-        "bugList",
-        "modofyResolvedCallback",
-        "deleteByIdCallback",
-        "selectAllCallback",
-        "updateDescCallback"
-    ],
+    props: ["bugList", "selectAllCallback"],
     computed: {
         resovledCount() {
-            //     let count = 0;
-            //     this.bugList.forEach((bug) => {
-            //         if (bug.resolved) count++;
-            //     });
-            //     return count;
-            // },
-            // 下面使用ES6数组的reduce方法实现功能
-            // 回调函数调用次数为数组总量，返回值是下一次回调的a参数，初始值设为0，b代表当前统计对象
-            // const count = this.bugList.reduce((a, b) => {
-            //     return a + (b.resolved ? 1 : 0);
-            // }, 0);
-            // return count;
-            // 简写方式
             return this.bugList.reduce((a, b) => a + (b.resolved ? 1 : 0), 0);
         },
         isAll() {
@@ -66,20 +44,10 @@ export default {
                 this.bugList.length > 0
             );
         },
-        // 通过setter取代methods函数中的selectAll
-        // isAll: {
-        //     get() {
-        //         this.bugList.length === this.resovledCount &&
-        //             this.bugList.length > 0;
-        //     },
-        //     set(value) {
-        //         this.selectAllCallback(value);
-        //     },
-        // },
     },
     methods: {
         selectAll(e) {
-            this.selectAllCallback(e.target.checked);
+            this.$emit("selectAllCallback", e.target.checked);
         },
     },
     components: { BugItem },

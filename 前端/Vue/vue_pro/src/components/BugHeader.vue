@@ -18,7 +18,6 @@ export default {
             desc: "",
         };
     },
-    props: ["saveBugCallback"],
     methods: {
         saveBug() {
             // trim去掉两端空字符，若为空串则结束
@@ -27,7 +26,7 @@ export default {
             }
             // 用时间戳生成id
             let bugObj = { id: Date.now(), desc: this.desc, resolved: false };
-            this.saveBugCallback(bugObj);
+            this.$emit("saveBugCallback", bugObj);
             this.desc = "";
         },
     },
