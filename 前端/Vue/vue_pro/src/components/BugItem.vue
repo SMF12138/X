@@ -15,7 +15,7 @@
     </tr>
 </template>
 <script>
-import pubsub from 'pubsub.js'
+import pubsub from 'pubsub-js';
 export default {
     name: "BugItem",
     props: ["bug", "modofyResolvedCallback", "deleteByIdCallback", "updateDescCallback"],
@@ -30,7 +30,7 @@ export default {
             if (bug.hasOwnProperty('editState')) {
                 bug.editState = true;
             } else {
-                pubsub.publish(bug, 'editState', true);
+                this.$set(bug, 'editState', true);
             }
             this.$nextTick(function() {
                 this.$refs.inputDesc.focus();
