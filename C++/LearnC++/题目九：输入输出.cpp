@@ -1,16 +1,21 @@
-//输入x值，输出y值
-#include<iostream>
-#include<cmath>
+#include <iostream>
+#include <cmath>
 using namespace std;
-int main(){
-	double x = 0;
-	cin >> x;
-	if(x<0){
-		cout<<3*x*x-5/x;
-	}else if(0<=x<5){
-		cout<<1/(2+cos(x));
-	}else{
-		cout<<sqrt(sin(x)+1);
-	}
-	return 0;
-} 
+
+int main() {
+    double x;
+    cin >> x;
+
+    if (x <= -1) {
+        cout << 3 * sqrt(abs(x) + 2) + 1;
+    } 
+    else if (x > -1 && x <= 10) {
+        cout << pow(x, 5) + 1;
+    } 
+    else {
+        cout << sqrt((x + 1) / (2 * x * x));
+    }
+
+    return 0;
+}
+

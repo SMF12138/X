@@ -7,7 +7,7 @@ int main(){
 	cin>>x;
 	if(x<0){
 		cout<<x*x+2/x+sin(x)<<endl;
-	}else if(0<=x<10){
+	}else if(0<=x&&x<10){
 		cout<<2*pow(x,5)-cos(x)<<endl;
 	}else{
 		cout<<1/sqrt(3*x*x-11);
