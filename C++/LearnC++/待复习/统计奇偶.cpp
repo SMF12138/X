@@ -1,8 +1,6 @@
 //编写程序，输入由数字字符构成的字符串，分别统计该字符串中数字字符对应的数字中奇数和偶数的个数。
 #include<iostream>
 using namespace std;
-#include <iostream>
-using namespace std;
 
 int main() {
     string s;

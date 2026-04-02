@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "12306余票监听然宝助手",
+  "version": "2.0",
+  "description": "自动监听12306余票，放票弹窗+声音提醒，支持一键暂停",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": "icons/icon16.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.12306.cn/*"],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.12306.cn/*"
+  ]
+}

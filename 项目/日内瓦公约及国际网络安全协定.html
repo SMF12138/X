@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLASSIFIED: INFILTRATION PROTOCOL</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #00ff41;
+    --danger: #ff0055;
+    --warning: #ffaa00;
+    --info: #00ffff;
+    --bg: #0a0e1a;
+    --panel: rgba(10, 20, 30, 0.8);
+    --glitch-color-1: #ff00ff;
+    --glitch-color-2: #00ffff;
+}
+
+body {
+    background: var(--bg);
+    color: var(--primary);
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+    cursor: crosshair;
+    height: 100vh;
+}
+
+/* 矩阵背景增强 */
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+/* 扫描线效果 */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.03) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    background-size: 100% 4px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 屏幕噪点 */
+.noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 登录界面增强 */
+.login-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.login-box {
+    width: 500px;
+    padding: 40px;
+    background: var(--panel);
+    border: 2px solid var(--primary);
+    border-radius: 0;
+    box-shadow: 0 0 40px rgba(0, 255, 65, 0.3), inset 0 0 20px rgba(0, 255, 65, 0.05);
+    position: relative;
+    animation: glitch 3s infinite;
+    overflow: hidden;
+}
+
+/* 登录框背景数据流 */
+.login-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+    animation: scanLine 4s linear infinite;
+    z-index: 0;
+}
+
+.login-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+    letter-spacing: 4px;
+    position: relative;
+}
+
+.warning-text {
+    color: var(--danger);
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: blink 1.5s infinite;
+}
+
+.input-group {
+    margin: 20px 0;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+}
+
+.input-group input:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--primary);
+    border-color: var(--info);
+}
+
+/* 输入框字符发光效果 */
+.input-group input::selection {
+    background: var(--primary);
+    color: var(--bg);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.auth-btn:hover {
+    background: var(--primary);
+    color: var(--bg);
+    box-shadow: 0 0 25px var(--primary);
+    transform: translateY(-2px);
+}
+
+.auth-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0, 255, 65, 0.3);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: width 0.6s, height 0.6s;
+}
+
+.auth-btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* 加载进度增强 */
+.loading-container {
+    margin-top: 30px;
+    display: none;
+    position: relative;
+    z-index: 2;
+}
+
+.loading-text {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: var(--warning);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.loading-text::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--warning);
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--info), var(--primary));
+    transition: width 0.3s;
+    box-shadow: 0 0 10px var(--primary);
+    position: relative;
+}
+
+/* 进度条闪光效果 */
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: progressFlash 1s infinite linear;
+}
+
+/* 主界面增强 */
+.main-interface {
+    display: none;
+    padding: 20px;
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* 顶部栏增强 */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: var(--panel);
+    border: 1px solid var(--primary);
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 顶部栏扫描效果 */
+.top-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+    animation: scanLine 6s linear infinite;
+}
+
+.system-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    position: relative;
+}
+
+.system-status {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    position: relative;
+}
+
+.status-item {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    animation: pulse 2s infinite;
+}
+
+.status-value {
+    color: var(--warning);
+    font-weight: bold;
+    margin-left: 8px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* 主内容区增强 */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    height: calc(100vh - 130px);
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--primary);
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+/* 面板悬浮效果 */
+.panel:hover {
+    border-color: var(--info);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+    transform: translateY(-3px);
+}
+
+/* 面板背景网格 */
+.panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.panel-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--primary);
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.panel-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    animation: pulse 2s infinite;
+}
+
+/* 终端增强 */
+.terminal {
+    font-size: 12px;
+    line-height: 1.6;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+    padding-right: 10px;
+}
+
+.terminal-line {
+    margin: 5px 0;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    position: relative;
+}
+
+/* 终端行序号 */
+.terminal-line::before {
+    content: attr(data-line);
+    color: rgba(0, 255, 65, 0.5);
+    margin-right: 10px;
+}
+
+.terminal-line.success { color: var(--primary); }
+.terminal-line.warning { color: var(--warning); }
+.terminal-line.error { color: var(--danger); }
+.terminal-line.info { color: var(--info); }
+
+.terminal-cursor::after {
+    content: '█';
+    animation: blink 1s infinite;
+}
+
+/* 网络地图增强 */
+#networkCanvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* 系统监控增强 */
+.metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    height: calc(100% - 50px);
+    position: relative;
+    z-index: 2;
+}
+
+.metric-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    padding: 15px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.metric-card:hover {
+    border-color: var(--info);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+
+.metric-label {
+    font-size: 10px;
+    color: rgba(0, 255, 65, 0.7);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.metric-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+    margin: 10px 0;
+}
+
+.metric-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+.metric-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--info));
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px var(--primary);
+    position: relative;
+}
+
+/* 目标列表增强 */
+.target-list {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.target-item {
+    padding: 12px;
+    margin: 8px 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-left: 3px solid transparent;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 目标项悬停效果 */
+.target-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.target-item:hover {
+    background: rgba(0, 255, 65, 0.1);
+    border-left-color: var(--primary);
+    transform: translateX(5px);
+}
+
+.target-item:hover::before {
+    left: 100%;
+}
+
+.target-name {
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.target-name::before {
+    content: '►';
+    font-size: 8px;
+    opacity: 0.7;
+}
+
+.target-status {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-family: 'Orbitron', sans-serif;
+    transition: all 0.3s;
+}
+
+.target-status.secure {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--primary);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+}
+
+.target-status.breached {
+    background: rgba(255, 0, 85, 0.2);
+    color: var(--danger);
+    border: 1px solid rgba(255, 0, 85, 0.3);
+    animation: blink 1s infinite, pulse 1s infinite;
+}
+
+/* 告警弹窗增强 */
+.alert-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 600px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 3px solid var(--danger);
+    z-index: 2000;
+    box-shadow: 0 0 50px rgba(255, 0, 85, 0.5), inset 0 0 30px rgba(255, 0, 85, 0.1);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 告警弹窗背景效果 */
+.alert-popup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 0, 85, 0.05),
+        rgba(255, 0, 85, 0.05) 10px,
+        rgba(255, 0, 85, 0.1) 10px,
+        rgba(255, 0, 85, 0.1) 20px
+    );
+    z-index: 0;
+}
+
+.alert-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+    animation: alertGlitch 0.5s infinite;
+}
+
+.alert-icon {
+    font-size: 60px;
+    text-align: center;
+    color: var(--danger);
+    margin-bottom: 20px;
+    animation: shake 0.5s infinite, pulse 1s infinite;
+    position: relative;
+    z-index: 2;
+}
+
+.alert-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    text-align: center;
+    color: var(--danger);
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px var(--danger);
+    position: relative;
+    z-index: 2;
+}
+
+.alert-message {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #fff;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 关闭告警按钮 */
+.close-alert {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 3;
+}
+
+.close-alert:hover {
+    background: var(--danger);
+    color: var(--bg);
+    box-shadow: 0 0 15px var(--danger);
+}
+
+/* 新增：快速访问控制台 */
+.quick-console {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    background: var(--panel);
+    border: 1px solid var(--primary);
+    padding: 15px;
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.console-header {
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+    display: flex;
+    justify-content: space-between;
+}
+
+.console-input {
+    width: 100%;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+}
+
+/* 新增：实时日志面板 */
+.log-panel {
+    position: fixed;
+    bottom: 100px;
+    left: 20px;
+    width: 350px;
+    max-height: 200px;
+    background: var(--panel);
+    border: 1px solid var(--primary);
+    padding: 10px;
+    z-index: 99;
+    overflow-y: auto;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+.log-item {
+    font-size: 10px;
+    margin: 3px 0;
+    color: rgba(0, 255, 65, 0.8);
+}
+
+/* 滚动条样式增强 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--info);
+    box-shadow: 0 0 15px var(--info);
+}
+
+/* 动画增强 */
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes glitch {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-2px, 2px); text-shadow: -2px 0 var(--glitch-color-1), 2px 0 var(--glitch-color-2); }
+    94% { transform: translate(2px, -2px); text-shadow: -2px 0 var(--glitch-color-2), 2px 0 var(--glitch-color-1); }
+    96% { transform: translate(-2px, -2px); }
+    98% { transform: translate(2px, 2px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@keyframes scanLine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+@keyframes progressFlash {
+    0% { left: -30px; }
+    100% { left: 100%; }
+}
+
+@keyframes alertGlitch {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-51%, -49%) scale(1.01); }
+}
+
+/* 响应式优化 */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+    }
+    .quick-console, .log-panel {
+        width: calc(100% - 40px);
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- 视觉增强层 -->
+<div class="scanline"></div>
+<div class="noise"></div>
+
+<!-- 矩阵背景 -->
+<canvas class="matrix-bg" id="matrixBg"></canvas>
+
+<!-- 登录界面 -->
+<div class="login-container" id="loginContainer">
+    <div class="login-box">
+        <div class="login-header">⚠CLASSIFIED ACCESS⚠</div>
+        <div class="warning-text">
+            ⚠ UNAUTHORIZED ACCESS IS PROHIBITED ⚠<br>
+            ALL ACTIVITIES ARE MONITORED AND LOGGED
+        </div>
+        
+        <div class="input-group">
+            <label>OPERATOR ID</label>
+            <input type="text" id="operatorId" placeholder="Enter clearance code..." autocomplete="off" value="AGENT-789">
+        </div>
+        
+        <div class="input-group">
+            <label>AUTHENTICATION KEY</label>
+            <input type="password" id="authKey" placeholder="Enter security token..." autocomplete="off" value="S3CR3T-K3Y">
+        </div>
+        
+        <button class="auth-btn" onclick="initiateAuth()">
+            ▶ INITIATE INFILTRATION
+        </button>
+        
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-text" id="loadingText">Establishing secure connection...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 主界面 -->
+<div class="main-interface" id="mainInterface">
+    <!-- 顶部状态栏 -->
+    <div class="top-bar">
+        <div class="system-title">◉ GLOBAL NETWORK OVERSIGHT SYSTEM</div>
+        <div class="system-status">
+            <div class="status-item">
+                STATUS: <span class="status-value" id="systemStatus">SECURE</span>
+            </div>
+            <div class="status-item">
+                CONNECTIONS: <span class="status-value" id="connCount">0</span>
+            </div>
+            <div class="status-item">
+                INTEGRITY: <span class="status-value" id="integrity">100%</span>
+            </div>
+            <div class="status-item">
+                LOCATION: <span class="status-value" id="location">UNKNOWN</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主内容网格 -->
+    <div class="main-content">
+        <!-- 终端面板 -->
+        <div class="panel">
+            <div class="panel-header">
+                SYSTEM TERMINAL
+                <div class="panel-indicator"></div>
+            </div>
+            <div class="terminal" id="terminal"></div>
+        </div>
+        
+        <!-- 网络地图 -->
+        <div class="panel">
+            <div class="panel-header">
+                NETWORK TOPOLOGY
+                <div class="panel-indicator"></div>
+            </div>
+            <canvas id="networkCanvas"></canvas>
+        </div>
+        
+        <!-- 系统监控 -->
+        <div class="panel">
+            <div class="panel-header">
+                SYSTEM METRICS
+                <div class="panel-indicator"></div>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-label">
+                        <span>CPU LOAD</span>
+                        <span id="cpuTemp">45°C</span>
+                    </div>
+                    <div class="metric-value" id="cpuValue">0%</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="cpuBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">
+                        <span>MEMORY</span>
+                        <span id="memUsed">8.2/16 GB</span>
+                    </div>
+                    <div class="metric-value" id="memValue">0%</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="memBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">
+                        <span>NETWORK I/O</span>
+                        <span id="netPacks">1284 p/s</span>
+                    </div>
+                    <div class="metric-value" id="netValue">0 MB/s</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="netBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">
+                        <span>THREAT LEVEL</span>
+                        <span id="threatScore">0/100</span>
+                    </div>
+                    <div class="metric-value" id="threatValue">LOW</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="threatBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 目标列表 -->
+        <div class="panel">
+            <div class="panel-header">
+                ACTIVE TARGETS
+                <div class="panel-indicator"></div>
+            </div>
+            <div class="target-list" id="targetList"></div>
+        </div>
+    </div>
+    
+    <!-- 新增：快速控制台 -->
+    <div class="quick-console">
+        <div class="console-header">QUICK COMMAND CONSOLE</div>
+        <input type="text" class="console-input" id="consoleInput" placeholder="Enter command" onkeydown="if(event.key === 'Enter') executeCommand()">
+    </div>
+    
+    <!-- 新增：实时日志面板 -->
+    <div class="log-panel" id="logPanel">
+        <div class="console-header">REAL-TIME SYSTEM LOGS</div>
+        <div id="logContainer"></div>
+    </div>
+</div>
+
+<!-- 告警弹窗 -->
+<div class="alert-popup" id="alertPopup">
+    <button class="close-alert" onclick="closeAlert()">✕</button>
+    <div class="alert-icon">⚠</div>
+    <div class="alert-title">SECURITY BREACH DETECTED</div>
+    <div class="alert-message" id="alertMessage">
+        UNAUTHORIZED ACCESS DETECTED<br>
+        NETWORK INTEGRITY COMPROMISED<br>
+        INITIATING EMERGENCY PROTOCOLS...
+    </div>
+</div>
+
+<script>
+// ============ 矩阵背景增强 ============
+const matrixCanvas = document.getElementById('matrixBg');
+const matrixCtx = matrixCanvas.getContext('2d');
+matrixCanvas.width = window.innerWidth;
+matrixCanvas.height = window.innerHeight;
+
+const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?';
+const fontSize = 14;
+const columns = matrixCanvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
+const dropSpeeds = Array(Math.floor(columns)).fill().map(() => Math.random() * 3 + 1);
+
+function drawMatrix() {
+    matrixCtx.fillStyle = 'rgba(10, 14, 26, 0.05)';
+    matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+    
+    matrixCtx.fillStyle = '#00ff41';
+    matrixCtx.font = fontSize + 'px monospace';
+    
+    for (let i = 0; i < drops.length; i++) {
+        const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+        matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        // 随机变色效果
+        if (Math.random() > 0.98) {
+            matrixCtx.fillStyle = Math.random() > 0.5 ? '#00ffff' : '#ff0055';
+        } else {
+            matrixCtx.fillStyle = '#00ff41';
+        }
+        
+        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+            dropSpeeds[i] = Math.random() * 3 + 1;
+        }
+        drops[i] += dropSpeeds[i];
+    }
+}
+
+setInterval(drawMatrix, 50);
+
+// ============ 登录认证增强 ============
+let loadingSteps = [
+    'Bypassing firewall...',
+    'Decrypting security protocols...',
+    'Establishing backdoor connection...',
+    'Masking IP address...',
+    'Injecting payload...',
+    'Escalating privileges...',
+    'Accessing mainframe...',
+    'Connection established.'
+];
+
+function initiateAuth() {
+    const operatorId = document.getElementById('operatorId').value;
+    const authKey = document.getElementById('authKey').value;
+    
+    // 空值验证
+    if (!operatorId || !authKey) {
+        addLog('ERROR: Operator ID and Authentication Key are required', 'error');
+        return;
+    }
+    
+    const loadingContainer = document.getElementById('loadingContainer');
+    const loadingText = document.getElementById('loadingText');
+    const progressFill = document.getElementById('progressFill');
+    
+    loadingContainer.style.display = 'block';
+    
+    let step = 0;
+    let progress = 0;
+    
+    const interval = setInterval(() => {
+        progress += 12.5;
+        progressFill.style.width = progress + '%';
+        
+        if (step < loadingSteps.length) {
+            loadingText.textContent = loadingSteps[step];
+            addLog(`[AUTH] ${loadingSteps[step]}`, 'info');
+            step++;
+        }
+        
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(enterMainInterface, 500);
+        }
+    }, 600);
+}
+
+// ============ 进入主界面 ============
+function enterMainInterface() {
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('mainInterface').style.display = 'block';
+    
+    // 随机生成地理位置
+    const locations = ['NEW YORK', 'LONDON', 'TOKYO', 'BERLIN', 'MOSCOW', 'BEIJING', 'PARIS', 'SYDNEY'];
+    document.getElementById('location').textContent = locations[Math.floor(Math.random() * locations.length)];
+    
+    initTerminal();
+    initNetworkMap();
+    initMetrics();
+    initTargets();
+    
+    // 实时日志初始化
+    addLog('SYSTEM INITIALIZED', 'success');
+    addLog('MAIN INTERFACE LOADED', 'success');
+    
+    // 12秒后触发入侵
+    setTimeout(triggerBreach, 12000);
+}
+
+// ============ 终端系统增强 ============
+let terminalLines = [
+    { text: '[SYSTEM] Initializing secure connection...', type: 'success', delay: 100 },
+    { text: '[NETWORK] Connected to 47 global nodes', type: 'success', delay: 300 },
+    { text: '[AUTH] Clearance level: OMEGA confirmed', type: 'success', delay: 500 },
+    { text: '[SCANNER] Monitoring 2,847 endpoints', type: 'success', delay: 700 },
+    { text: '[FIREWALL] Defense systems active', type: 'success', delay: 900 },
+    { text: '[CRYPTO] Encryption protocols enabled', type: 'success', delay: 1100 },
+    { text: '[AI] Threat detection online', type: 'success', delay: 1300 },
+    { text: '[STATUS] All systems operational', type: 'success', delay: 1500 },
+];
+
+function initTerminal() {
+    const terminal = document.getElementById('terminal');
+    terminal.innerHTML = '';
+    
+    terminalLines.forEach((line, index) => {
+        setTimeout(() => {
+            const div = document.createElement('div');
+            div.className = `terminal-line ${line.type}`;
+            div.textContent = line.text;
+            div.setAttribute('data-line', (index + 1).toString().padStart(3, '0'));
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+        }, line.delay);
+    });
+}
+
+function addTerminalLine(text, type = 'success') {
+    const terminal = document.getElementById('terminal');
+    const lineCount = terminal.children.length + 1;
+    const div = document.createElement('div');
+    div.className = `terminal-line ${type}`;
+    div.textContent = text;
+    div.setAttribute('data-line', lineCount.toString().padStart(3, '0'));
+    terminal.appendChild(div);
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+// ============ 网络地图增强 ============
+function initNetworkMap() {
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    
+    const nodes = [];
+    const nodeCount = 80; // 增加节点数量
+    
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8,
+            compromised: false,
+            size: Math.random() * 3 + 2 // 随机节点大小
+        });
+    }
+    
+    function drawNetwork() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 120) {
+                    const alpha = 1 - dist / 120;
+                    const color = nodes[i].compromised || nodes[j].compromised ? 
+                        `rgba(255, 0, 85, ${alpha})` : `rgba(0, 255, 65, ${alpha})`;
+                    
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = nodes[i].compromised || nodes[j].compromised ? 1 : 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // Draw nodes
+        nodes.forEach(node => {
+            ctx.fillStyle = node.compromised ? '#ff0055' : '#00ff41';
+            ctx.shadowBlur = node.compromised ? 15 : 10;
+            ctx.shadowColor = node.compromised ? '#ff0055' : '#00ff41';
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            
+            // 被攻破的节点添加闪烁效果
+            if (node.compromised && Math.floor(Math.random() * 10) < 3) {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size + 2, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            
+            // Update position
+            node.x += node.vx;
+            node.y += node.vy;
+            
+            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+        });
+        
+        requestAnimationFrame(drawNetwork);
+    }
+    
+    drawNetwork();
+    
+    // Store nodes for breach effect
+    window.networkNodes = nodes;
+}
+
+// ============ 系统指标增强 ============
+function initMetrics() {
+    setInterval(() => {
+        const cpu = Math.floor(Math.random() * 30) + 20;
+        const mem = Math.floor(Math.random() * 25) + 40;
+        const net = (Math.random() * 50 + 10).toFixed(1);
+        
+        // CPU 温度模拟
+        const cpuTemp = Math.floor(cpu * 0.8) + 30;
+        document.getElementById('cpuTemp').textContent = `${cpuTemp}°C`;
+        
+        // 内存使用模拟
+        const memUsed = (mem / 100 * 16).toFixed(1);
+        document.getElementById('memUsed').textContent = `${memUsed}/16 GB`;
+        
+        // 网络数据包模拟
+        const netPacks = Math.floor(Math.random() * 1000) + 500;
+        document.getElementById('netPacks').textContent = `${netPacks} p/s`;
+        
+        // 威胁分数模拟
+        const threatScore = document.getElementById('threatValue').textContent === 'LOW' ? 
+            Math.floor(Math.random() * 10) : Math.floor(Math.random() * 100);
+        document.getElementById('threatScore').textContent = `${threatScore}/100`;
+        
+        document.getElementById('cpuValue').textContent = cpu + '%';
+        document.getElementById('cpuBar').style.width = cpu + '%';
+        
+        document.getElementById('memValue').textContent = mem + '%';
+        document.getElementById('memBar').style.width = mem + '%';
+        
+        document.getElementById('netValue').textContent = net + ' MB/s';
+        document.getElementById('netBar').style.width = (parseFloat(net) / 60 * 100) + '%';
+        
+        document.getElementById('connCount').textContent = Math.floor(Math.random() * 10) + 45;
+        
+        // 随机日志
+        if (Math.random() > 0.7) {
+            const logTypes = ['info', 'success', 'warning'];
+            const logMessages = [
+                'Network packet analyzed',
+                'Firewall rule updated',
+                'System check completed',
+                'Data packet encrypted',
+                'Connection verified'
+            ];
+            addLog(`[MONITOR] ${logMessages[Math.floor(Math.random() * logMessages.length)]}`, 
+                   logTypes[Math.floor(Math.random() * logTypes.length)]);
+        }
+        
+    }, 2000);
+}
+
+// ============ 目标列表 ============
+const targets = [
+    'NATO Command Center',
+    'UN Security Council',
+    'INTERPOL Database',
+    'Geneva Convention Archive',
+    'International Criminal Court',
+    'World Health Organization',
+    'Nuclear Regulatory Commission',
+    'Cybersecurity Command',
+    'Intelligence Fusion Center',
+    'Global Defense Network'
+];
+
+function initTargets() {
+    const targetList = document.getElementById('targetList');
+    
+    targets.forEach((target, index) => {
+        setTimeout(() => {
+            const div = document.createElement('div');
+            div.className = 'target-item';
+            div.onclick = () => {
+                addTerminalLine(`[TARGET] Selected: ${target}`, 'info');
+                addLog(`Target selected: ${target}`, 'info');
+            };
+            div.innerHTML = `
+                <div class="target-name">${target}</div>
+                <div class="target-status secure">SECURE</div>
+            `;
+            targetList.appendChild(div);
+        }, index * 200);
+    });
+}
+
+// ============ 触发入侵增强 ============
+function triggerBreach() {
+    // 终端警告
+    addTerminalLine('[WARNING] Unusual network activity detected', 'warning');
+    addLog('UNUSUAL NETWORK ACTIVITY DETECTED', 'warning');
+    
+    setTimeout(() => {
+        addTerminalLine('[ALERT] Unauthorized access attempt detected', 'error');
+        addLog('UNAUTHORIZED ACCESS ATTEMPT DETECTED', 'error');
+        
+        // 更新系统状态
+        document.getElementById('systemStatus').textContent = 'COMPROMISED';
+        document.getElementById('systemStatus').style.color = '#ff0055';
+        
+        // 威胁等级飙升
+        document.getElementById('threatValue').textContent = 'CRITICAL';
+        document.getElementById('threatBar').style.width = '100%';
+        document.getElementById('threatBar').style.background = 'linear-gradient(90deg, #ff0055, #ff8800)';
+        document.getElementById('threatScore').textContent = '98/100';
+        
+        // 完整性下降
+        let integrity = 100;
+        const integrityInterval = setInterval(() => {
+            integrity -= 5;
+            document.getElementById('integrity').textContent = integrity + '%';
+            if (integrity <= 0) {
+                clearInterval(integrityInterval);
+                document.getElementById('integrity').textContent = '0%';
+            }
+        }, 200);
+        
+        // 目标被攻破
+        const targetItems = document.querySelectorAll('.target-item');
+        targetItems.forEach((item, index) => {
+            setTimeout(() => {
+                const statusEl = item.querySelector('.target-status');
+                statusEl.textContent = 'BREACHED';
+                statusEl.className = 'target-status breached';
+                
+                addTerminalLine(`[BREACH] ${targets[index]} compromised`, 'error');
+                addLog(`BREACH: ${targets[index]} COMPROMISED`, 'error');
+            }, index * 400);
+        });
+        
+        // 网络节点被感染
+        if (window.networkNodes) {
+            window.networkNodes.forEach((node, index) => {
+                setTimeout(() => {
+                    node.compromised = true;
+                }, index * 50);
+            });
+        }
+        
+        // 显示告警弹窗
+        setTimeout(() => {
+            document.getElementById('alertPopup').classList.add('show');
+            addLog('SECURITY BREACH ALERT ACTIVATED', 'error');
+        }, 5000);
+        
+    }, 1000);
+}
+
+// ============ 新增功能：实时日志系统 ============
+function addLog(message, type = 'info') {
+    const logContainer = document.getElementById('logContainer');
+    const logItem = document.createElement('div');
+    logItem.className = `log-item ${type}`;
+    
+    // 添加时间戳
+    const now = new Date();
+    const timeStamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+    
+    logItem.textContent = `[${timeStamp}] ${message}`;
+    
+    // 设置日志颜色
+    if (type === 'error') logItem.style.color = '#ff0055';
+    if (type === 'warning') logItem.style.color = '#ffaa00';
+    if (type === 'success') logItem.style.color = '#00ff41';
+    if (type === 'info') logItem.style.color = '#00ffff';
+    
+    logContainer.appendChild(logItem);
+    logContainer.scrollTop = logContainer.scrollHeight;
+    
+    // 限制日志数量
+    if (logContainer.children.length > 20) {
+        logContainer.removeChild(logContainer.firstChild);
+    }
+}
+
+// ============ 新增功能：命令控制台 ============
+function executeCommand() {
+    const input = document.getElementById('consoleInput');
+    const command = input.value.trim().toLowerCase();
+    input.value = '';
+    
+    if (!command) return;
+    
+    addLog(`EXECUTING COMMAND: ${command}`, 'info');
+    addTerminalLine(`[COMMAND] > ${command}`, 'info');
+    
+    switch(command) {
+        case 'scan':
+            addTerminalLine('[SCANNER] Scanning network for vulnerabilities...', 'success');
+            addLog('Network scan initiated', 'success');
+            setTimeout(() => {
+                addTerminalLine('[SCANNER] Found 14 potential vulnerabilities', 'warning');
+                addLog('Scan completed - 14 vulnerabilities found', 'warning');
+            }, 1500);
+            break;
+            
+        case 'breach':
+            addTerminalLine('[ATTACK] Initiating breach protocol...', 'warning');
+            addLog('Breach protocol initiated', 'warning');
+            triggerBreach();
+            break;
+            
+        case 'status':
+            addTerminalLine(`[STATUS] System: ${document.getElementById('systemStatus').textContent}`, 'info');
+            addTerminalLine(`[STATUS] Integrity: ${document.getElementById('integrity').textContent}`, 'info');
+            addTerminalLine(`[STATUS] Threat Level: ${document.getElementById('threatValue').textContent}`, 'info');
+            addLog('System status report generated', 'info');
+            break;
+            
+        case 'clear':
+            document.getElementById('terminal').innerHTML = '';
+            document.getElementById('logContainer').innerHTML = '';
+            addTerminalLine('[SYSTEM] Terminal cleared', 'success');
+            addLog('Terminal and logs cleared', 'success');
+            break;
+            
+        case 'help':
+            addTerminalLine('[HELP] Available commands: scan, breach, status, clear, help, exit', 'info');
+            addLog('Help menu displayed', 'info');
+            break;
+            
+        case 'exit':
+            addTerminalLine('[SYSTEM] Exiting to login screen...', 'warning');
+            addLog('Exiting system', 'warning');
+            setTimeout(() => {
+                document.getElementById('mainInterface').style.display = 'none';
+                document.getElementById('loginContainer').style.display = 'flex';
+            }, 1000);
+            break;
+            
+        default:
+            addTerminalLine(`[ERROR] Unknown command: ${command}`, 'error');
+            addLog(`Unknown command: ${command}`, 'error');
+    }
+}
+
+// ============ 新增功能：关闭告警弹窗 ============
+function closeAlert() {
+    document.getElementById('alertPopup').classList.remove('show');
+    addLog('Security alert dismissed', 'warning');
+    addTerminalLine('[ALERT] Security breach alert dismissed', 'warning');
+}
+
+// ============ 窗口大小响应 ============
+window.addEventListener('resize', () => {
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    
+    // 重新初始化网络地图
+    if (document.getElementById('mainInterface').style.display === 'block') {
+        initNetworkMap();
+    }
+});
+
+// 自动填充测试账号（方便拍戏演示）
+window.addEventListener('load', () => {
+    document.getElementById('operatorId').value = 'FLYJs-SZY';
+    document.getElementById('authKey').value = 'FLYJs/SZY12138';
+});
+</script>
+
+</body>
+</html>
